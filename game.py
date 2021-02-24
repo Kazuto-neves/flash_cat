@@ -27,7 +27,7 @@ class Cat(pygame.sprite.Sprite):
         self.imagens_cat = []
         for i in range(8):
             img = sprite_sheet.subsurface((i * 508,0), (514,407))
-            img = pygame.transform.scale(img, (int(514/10),int(407/10)))
+            img = pygame.transform.scale(img, (int(28*3),int(20*3)))
             self.imagens_cat.append(img)
         
         self.index_lista = 0
@@ -106,7 +106,7 @@ class Cloud(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = sprite_sheet.subsurface((10*512, 0), (514,407))
-        self.image = pygame.transform.scale(self.image, (int(514/10),int(407/10)))
+        self.image = pygame.transform.scale(self.image, (int(28*3),int(20*3)))
         self.rect = self.image.get_rect()
         self.rect.y = randrange(10, 50, 50)
         self.rect.x = LARGURA - randrange(50, 200, 90)
@@ -122,7 +122,7 @@ class Mouse(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = sprite_sheet.subsurface((11*520, 0), (514,407))
-        self.image = pygame.transform.scale(self.image, (int(514/10),int(407/10)))
+        self.image = pygame.transform.scale(self.image, (int(28*3),int(20*3)))
         self.rect = self.image.get_rect()
         self.rect.y = randrange(81, 100, 50)
         self.rect.x = LARGURA - randrange(30, 290, 90)
@@ -136,9 +136,6 @@ class Mouse(pygame.sprite.Sprite):
             self.rect.x = LARGURA
             self.rect.y = randrange(81, 285, 50)
         self.rect.x -= 10
-        if self.crash == True:
-            self.image = sprite_sheet.subsurface((13*34.58, 0), (514,407))
-            self.image = pygame.transform.scale(self.image, (int(30*3),int(20*3)))
 
 class Back(pygame.sprite.Sprite):
     def __init__(self):
