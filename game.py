@@ -130,12 +130,13 @@ class Mouse(pygame.sprite.Sprite):
 
     def Crash (self):crash=True
 
-
     def update(self):
         if self.rect.topright[0] < 0:
             self.rect.x = LARGURA
             self.rect.y = randrange(81, 285, 50)
         self.rect.x -= 10
+        if self.rect.y == 82:self.rect.y += 20
+        elif self.rect.y == 284:self.rect.y -= 10
 
 class Back(pygame.sprite.Sprite):
     def __init__(self):
