@@ -169,6 +169,7 @@ for i in range(3):
     todas_as_sprites.add(cloud)
 
 #for i in range(9):
+
 mouse1 = Mouse()
 mouse2 = Mouse()
 mouse3 = Mouse()
@@ -207,7 +208,6 @@ while True:
         print("colidiu")
         #cat.Crash()
         #mouse.Crash()
-
     if colidiu == True:pass
     else:todas_as_sprites.update()
 
