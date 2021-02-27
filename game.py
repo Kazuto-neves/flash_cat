@@ -3,6 +3,7 @@ from pygame.locals import *
 from sys import exit
 import os
 from random import randrange
+import time
 
 pygame.init()
 pygame.mixer.init()
@@ -14,11 +15,13 @@ diretorio_sons = os.path.join(diretorio_principal, 'audio')
 LARGURA = 640
 ALTURA = 360
 BRANCO = (255,255,255)
+Vermelho = (255,0,0)
 tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flash cat')
 back = pygame.image.load(os.path.join(diretorio_imagens,'back.png')).convert_alpha()
 sprite_sheet = pygame.image.load(os.path.join(diretorio_imagens, 'sprite.png')).convert_alpha()
 colidiu = False
+bullets = []
 v=0
 
 class Cat(pygame.sprite.Sprite):
@@ -43,6 +46,8 @@ class Cat(pygame.sprite.Sprite):
         self.movel= False
         self.mover= False
         self.crash = False
+        self.wreck_start = False
+        self.wrecked = False
 
     def MoveU(self,n):
         if n == True:
@@ -138,6 +143,7 @@ class Mouse(pygame.sprite.Sprite):
         if self.rect.y == 82:self.rect.y += 20
         elif self.rect.y == 284:self.rect.y -= 10
 
+
 class Back(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -182,34 +188,52 @@ grupo_obstaculos = pygame.sprite.Group()
 grupo_obstaculos.add(mouse1,mouse2,mouse3,mouse4)
 
 relogio = pygame.time.Clock()
-while True:
-    relogio.tick(30)
-    tela.fill(BRANCO)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            exit()
-        if event.type == KEYDOWN:
-            if event.key == K_w or event.key == K_UP:cat.MoveU(True)
-            if event.key == K_s or event.key == K_DOWN:cat.MoveD(True)
-            if event.key == K_a or event.key == K_LEFT:cat.MoveL(True)
-            if event.key == K_d or event.key == K_RIGHT:cat.MoveR(True)
-        elif event.type == KEYUP:
-            if event.key == K_w or event.key == K_UP:cat.MoveU(False)
-            if event.key == K_s or event.key == K_DOWN:cat.MoveD(False)
-            if event.key == K_a or event.key == K_LEFT:cat.MoveL(False)
-            if event.key == K_d or event.key == K_RIGHT:cat.MoveR(False)
+def game_loop():
+    global colidiu
+    global bullets
 
-    colisoes = pygame.sprite.spritecollide(cat, grupo_obstaculos, False, pygame.sprite.collide_mask)
+    while True:
+        relogio.tick(30)
+        tela.fill(BRANCO)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            if event.type == KEYDOWN:
+                if event.key == K_w or event.key == K_UP:cat.MoveU(True)
+                if event.key == K_s or event.key == K_DOWN:cat.MoveD(True)
+                if event.key == K_a or event.key == K_LEFT:cat.MoveL(True)
+                if event.key == K_d or event.key == K_RIGHT:cat.MoveR(True)
+                if event.key == pygame.K_SPACE:
+                    if not cat.wreck_start:bullets.append([cat.x, cat.y])
+            elif event.type == KEYUP:
+                if event.key == K_w or event.key == K_UP:cat.MoveU(False)
+                if event.key == K_s or event.key == K_DOWN:cat.MoveD(False)
+                if event.key == K_a or event.key == K_LEFT:cat.MoveL(False)
+                if event.key == K_d or event.key == K_RIGHT:cat.MoveR(False)
 
-    todas_as_sprites.draw(tela)
+        colisoes = pygame.sprite.spritecollide(cat, grupo_obstaculos, False, pygame.sprite.collide_mask)
 
-    if colisoes and colidiu == False:
-        colidiu = True
-        print("colidiu")
-        #cat.Crash()
-        #mouse.Crash()
-    if colidiu == True:pass
-    else:todas_as_sprites.update()
+        todas_as_sprites.draw(tela)
 
-    pygame.display.flip()
+        if not cat.wreck_start and not cat.wrecked:
+            for draw_bullet in bullets:pygame.draw.rect(tela, Vermelho, (draw_bullet[0]+90, draw_bullet[1]+40, 10, 10))
+
+            for move_bullet in range(len(bullets)):bullets[move_bullet][0] += 40
+
+            for del_bullet in bullets:
+                if del_bullet[0] >= 800:bullets.remove(del_bullet)
+
+        if colisoes and colidiu == False:
+            colidiu = True
+            cat.wrecked = True
+            print("colidiu")
+            #cat.Crash()
+            #mouse.Crash()
+        if colidiu == True:pass
+        else:todas_as_sprites.update()
+
+
+        pygame.display.flip()
+
+game_loop()
