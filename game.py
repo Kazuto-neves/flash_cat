@@ -224,6 +224,21 @@ def game_loop():
             for del_bullet in bullets:
                 if del_bullet[0] >= 800:bullets.remove(del_bullet)
 
+        
+        #for pop_balloon in bullets:
+        #    if mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+90 < mouse1.y or mouse2.y or mouse3.y or mouse4.y +70 and mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[1]+40 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
+        #        bullets.remove(pop_balloon)
+        #        mouse1.x = 800 - 870
+        #        mouse2.x = 800 - 870
+        #        mouse3.x = 800 - 870
+        #        mouse4.x = 800 - 870
+        #    elif mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+100 < mouse1.x or mouse2.x or mouse3.x or mouse4.x +70 and mouse1.y or mouse2.y or mouse3.y or mouse4.y < pop_balloon[1]+50 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
+        #        bullets.remove(pop_balloon)
+        #        mouse1.x = 800 - 870
+        #        mouse2.x = 800 - 870
+        #        mouse3.x = 800 - 870
+        #        mouse4.x = 800 - 870
+
         if colisoes and colidiu == False:
             colidiu = True
             cat.wrecked = True
