@@ -50,19 +50,19 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
 
-        if M1.rect.x == X and M1.rect.y == Y:
+        if M1.x == X and M1.y == Y:
             print("acertou1")
             M1.rect.y += 10
         
-        if M2.rect.x == X and M2.rect.y == Y:
+        if M2.x == X and M2.y == Y:
             print("acertou2")
             M2.rect.y += 10
 
-        if M3.rect.x == X and M3.rect.y == Y:
+        if M3.x == X and M3.y == Y:
             print("acertou3")
             M3.rect.y += 10
 
-        if M4.rect.x == X and M4.rect.y == Y:
+        if M4.x == X and M4.y == Y:
             print("acertou4")
             M4.rect.y += 10
 
@@ -198,6 +198,9 @@ class Mouse(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = randrange(81, 100, 50)
         self.rect.x = LARGURA - randrange(30, 290, 90)
+        self.x=self.rect.x
+        self.y=self.rect.y
+
 
     def pos (self):return [self.rect.x,self.rect.y]
 
@@ -206,6 +209,8 @@ class Mouse(pygame.sprite.Sprite):
             self.rect.x = LARGURA
             self.rect.y = randrange(81, 285, 50)
         self.rect.x -= 10
+        self.x=self.rect.x
+        self.y=self.rect.y
         if self.rect.y == 82:self.rect.y += 20
         elif self.rect.y == 284:self.rect.y -= 10
 
