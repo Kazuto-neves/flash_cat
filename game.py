@@ -16,6 +16,7 @@ LARGURA = 640
 ALTURA = 360
 BRANCO = (255,255,255)
 Vermelho = (255,0,0)
+Amarelo = (255,255,0)
 tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Flash cat')
 back = pygame.image.load(os.path.join(diretorio_imagens,'back.png')).convert_alpha()
@@ -23,9 +24,10 @@ sprite_sheet = pygame.image.load(os.path.join(diretorio_imagens, 'sprite.png')).
 colidiu = False
 bullets = []
 v=0
+x=0
+y=0
 
-
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,X,Y):
     while True:
         Time.tick(30)
         T.fill(Color)
@@ -48,42 +50,45 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS):
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
 
+        if M1.rect.x == X and M1.rect.y == Y:
+            print("acertou1")
+            M1.rect.y += 10
+        
+        if M2.rect.x == X and M2.rect.y == Y:
+            print("acertou2")
+            M2.rect.y += 10
+
+        if M3.rect.x == X and M3.rect.y == Y:
+            print("acertou3")
+            M3.rect.y += 10
+
+        if M4.rect.x == X and M4.rect.y == Y:
+            print("acertou4")
+            M4.rect.y += 10
+
         TS.draw(T)
 
-        fire(Cws,Cwr,T,Color2,B)
-
-        #for pop_balloon in bullets:
-        #    if mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+90 < mouse1.y or mouse2.y or mouse3.y or mouse4.y +70 and mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[1]+40 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
-        #        bullets.remove(pop_balloon)
-        #        mouse1.x = 800 - 870
-        #        mouse2.x = 800 - 870
-        #        mouse3.x = 800 - 870
-        #        mouse4.x = 800 - 870
-        #    elif mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+100 < mouse1.x or mouse2.x or mouse3.x or mouse4.x +70 and mouse1.y or mouse2.y or mouse3.y or mouse4.y < pop_balloon[1]+50 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
-        #        bullets.remove(pop_balloon)
-        #        mouse1.x = 800 - 870
-        #        mouse2.x = 800 - 870
-        #        mouse3.x = 800 - 870
-        #        mouse4.x = 800 - 870
+        fire(Cws,Cwr,T,Color2,B,x,y)
 
         if colisoes and Col == False:
             Col = True
             Cwr = True
             print("colidiu")
-            #cat.Crash()
-            #mouse.Crash()
         if Col == True:pass
         else:TS.update()
 
-
         pygame.display.flip()
 
-def fire(Cws,Cwr,T,color,B):
+def fire(Cws,Cwr,T,color,B,x,y):
     if not Cws and not Cwr:
-        for draw_bullet in B:pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, 10, 10))
-        for move_bullet in range(len(B)):B[move_bullet][0] += 40
+        for draw_bullet in B:
+            pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, 10, 10))
+            y=draw_bullet[1]
+        for move_bullet in range(len(B)):
+            B[move_bullet][0] += 40
+            x=move_bullet
         for del_bullet in B:
-                if del_bullet[0] >= 800:B.remove(del_bullet)
+                if del_bullet[0] >= 640:B.remove(del_bullet)
 
 class Cat(pygame.sprite.Sprite):
     def __init__(self):
@@ -97,11 +102,10 @@ class Cat(pygame.sprite.Sprite):
         self.index_lista = 0
         self.image = self.imagens_cat[self.index_lista]
         self.rect = self.image.get_rect()
-        #self.rect.center = (100,180)
         self.mask = pygame.mask.from_surface(self.image)
         self.y= 250
         self.x= 20
-        self.rect.topleft = (self.x, self.y) #368   416(centro y)
+        self.rect.topleft = (self.x, self.y)
         self.moveu= False
         self.moved= False
         self.movel= False
@@ -166,15 +170,9 @@ class Cat(pygame.sprite.Sprite):
                 self.rect.x-=10
                 self.x = self.rect.x
 
-        #if self.crash == False:
         if self.index_lista > 7:self.index_lista = 0
         self.index_lista += 0.25
         self.image = self.imagens_cat[int(self.index_lista)]
-        #else:
-        #    self.index_lista = 8
-        #    if self.index_lista > 10:self.index_lista = 8
-        #    self.index_lista += 0.9
-        #    self.image = self.imagens_cat[int(self.index_lista)]
 
 class Cloud(pygame.sprite.Sprite):
     def __init__(self):
@@ -200,9 +198,8 @@ class Mouse(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = randrange(81, 100, 50)
         self.rect.x = LARGURA - randrange(30, 290, 90)
-        self.crash = False
 
-    def Crash (self):crash=True
+    def pos (self):return [self.rect.x,self.rect.y]
 
     def update(self):
         if self.rect.topright[0] < 0:
@@ -244,8 +241,6 @@ for i in range(3):
     cloud = Cloud()
     todas_as_sprites.add(cloud)
 
-#for i in range(9):
-
 mouse1 = Mouse()
 mouse2 = Mouse()
 mouse3 = Mouse()
@@ -261,7 +256,5 @@ relogio = pygame.time.Clock()
 def game_loop():
     global colidiu
     global bullets
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Vermelho,todas_as_sprites)
-    
-
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y)
 game_loop()
