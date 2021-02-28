@@ -24,6 +24,67 @@ colidiu = False
 bullets = []
 v=0
 
+
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS):
+    while True:
+        Time.tick(30)
+        T.fill(Color)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            if event.type == KEYDOWN:
+                if event.key == K_w or event.key == K_UP:catMU(True)
+                if event.key == K_s or event.key == K_DOWN:catMD(True)
+                if event.key == K_a or event.key == K_LEFT:catML(True)
+                if event.key == K_d or event.key == K_RIGHT:catMR(True)
+                if event.key == pygame.K_SPACE:
+                    if not Cws:B.append([c.x, c.y])
+            elif event.type == KEYUP:
+                if event.key == K_w or event.key == K_UP:catMU(False)
+                if event.key == K_s or event.key == K_DOWN:catMD(False)
+                if event.key == K_a or event.key == K_LEFT:catML(False)
+                if event.key == K_d or event.key == K_RIGHT:catMR(False)
+
+        colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
+
+        TS.draw(T)
+
+        fire(Cws,Cwr,T,Color2,B)
+
+        #for pop_balloon in bullets:
+        #    if mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+90 < mouse1.y or mouse2.y or mouse3.y or mouse4.y +70 and mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[1]+40 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
+        #        bullets.remove(pop_balloon)
+        #        mouse1.x = 800 - 870
+        #        mouse2.x = 800 - 870
+        #        mouse3.x = 800 - 870
+        #        mouse4.x = 800 - 870
+        #    elif mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+100 < mouse1.x or mouse2.x or mouse3.x or mouse4.x +70 and mouse1.y or mouse2.y or mouse3.y or mouse4.y < pop_balloon[1]+50 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
+        #        bullets.remove(pop_balloon)
+        #        mouse1.x = 800 - 870
+        #        mouse2.x = 800 - 870
+        #        mouse3.x = 800 - 870
+        #        mouse4.x = 800 - 870
+
+        if colisoes and Col == False:
+            Col = True
+            Cwr = True
+            print("colidiu")
+            #cat.Crash()
+            #mouse.Crash()
+        if Col == True:pass
+        else:TS.update()
+
+
+        pygame.display.flip()
+
+def fire(Cws,Cwr,T,color,B):
+    if not Cws and not Cwr:
+        for draw_bullet in B:pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, 10, 10))
+        for move_bullet in range(len(B)):B[move_bullet][0] += 40
+        for del_bullet in B:
+                if del_bullet[0] >= 800:B.remove(del_bullet)
+
 class Cat(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -83,19 +144,27 @@ class Cat(pygame.sprite.Sprite):
     def update(self):
         if self.moveu == True:
             if self.rect.y == 80:self.moveu = False
-            else:self.rect.y-=10
+            else:
+                self.rect.y-=10
+                self.y = self.rect.y
 
         elif self.moved == True:
             if self.rect.y == 260:self.moved = False
-            else:self.rect.y+=10
+            else:
+                self.rect.y+=10
+                self.y = self.rect.y
 
         elif self.mover == True:
             if self.rect.x == 550:self.mover = False
-            else:self.rect.x+=10
+            else:
+                self.rect.x+=10
+                self.x = self.rect.x
 
         elif self.movel == True:
             if self.rect.x == 10:self.movel = False
-            else:self.rect.x-=10
+            else:
+                self.rect.x-=10
+                self.x = self.rect.x
 
         #if self.crash == False:
         if self.index_lista > 7:self.index_lista = 0
@@ -188,67 +257,11 @@ grupo_obstaculos = pygame.sprite.Group()
 grupo_obstaculos.add(mouse1,mouse2,mouse3,mouse4)
 
 relogio = pygame.time.Clock()
+
 def game_loop():
     global colidiu
     global bullets
-
-    while True:
-        relogio.tick(30)
-        tela.fill(BRANCO)
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            if event.type == KEYDOWN:
-                if event.key == K_w or event.key == K_UP:cat.MoveU(True)
-                if event.key == K_s or event.key == K_DOWN:cat.MoveD(True)
-                if event.key == K_a or event.key == K_LEFT:cat.MoveL(True)
-                if event.key == K_d or event.key == K_RIGHT:cat.MoveR(True)
-                if event.key == pygame.K_SPACE:
-                    if not cat.wreck_start:bullets.append([cat.x, cat.y])
-            elif event.type == KEYUP:
-                if event.key == K_w or event.key == K_UP:cat.MoveU(False)
-                if event.key == K_s or event.key == K_DOWN:cat.MoveD(False)
-                if event.key == K_a or event.key == K_LEFT:cat.MoveL(False)
-                if event.key == K_d or event.key == K_RIGHT:cat.MoveR(False)
-
-        colisoes = pygame.sprite.spritecollide(cat, grupo_obstaculos, False, pygame.sprite.collide_mask)
-
-        todas_as_sprites.draw(tela)
-
-        if not cat.wreck_start and not cat.wrecked:
-            for draw_bullet in bullets:pygame.draw.rect(tela, Vermelho, (draw_bullet[0]+90, draw_bullet[1]+40, 10, 10))
-
-            for move_bullet in range(len(bullets)):bullets[move_bullet][0] += 40
-
-            for del_bullet in bullets:
-                if del_bullet[0] >= 800:bullets.remove(del_bullet)
-
-        
-        #for pop_balloon in bullets:
-        #    if mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+90 < mouse1.y or mouse2.y or mouse3.y or mouse4.y +70 and mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[1]+40 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
-        #        bullets.remove(pop_balloon)
-        #        mouse1.x = 800 - 870
-        #        mouse2.x = 800 - 870
-        #        mouse3.x = 800 - 870
-        #        mouse4.x = 800 - 870
-        #    elif mouse1.x or mouse2.x or mouse3.x or mouse4.x < pop_balloon[0]+100 < mouse1.x or mouse2.x or mouse3.x or mouse4.x +70 and mouse1.y or mouse2.y or mouse3.y or mouse4.y < pop_balloon[1]+50 < mouse1.y or mouse2.y or mouse3.y or mouse4.y+100:
-        #        bullets.remove(pop_balloon)
-        #        mouse1.x = 800 - 870
-        #        mouse2.x = 800 - 870
-        #        mouse3.x = 800 - 870
-        #        mouse4.x = 800 - 870
-
-        if colisoes and colidiu == False:
-            colidiu = True
-            cat.wrecked = True
-            print("colidiu")
-            #cat.Crash()
-            #mouse.Crash()
-        if colidiu == True:pass
-        else:todas_as_sprites.update()
-
-
-        pygame.display.flip()
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Vermelho,todas_as_sprites)
+    
 
 game_loop()
