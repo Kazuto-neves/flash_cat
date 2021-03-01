@@ -1,3 +1,11 @@
 
 *.pyc
 *.zip
+*.toc
+*.manifest
+*.pkg
+*.pyz
+*.txt
+*.html
+*.spec
+*.exe
