@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from sys import exit
 import os
-from random import randrange
+from random import *
 import time
 
 pygame.init()
@@ -22,12 +22,14 @@ pygame.display.set_caption('Flash cat')
 back = pygame.image.load(os.path.join(diretorio_imagens,'back.png')).convert_alpha()
 sprite_sheet = pygame.image.load(os.path.join(diretorio_imagens, 'sprite.png')).convert_alpha()
 colidiu = False
+colidiuM = False
 bullets = []
 v=0
 x=0
 y=0
+game_over = False
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,X,Y):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2):
     while True:
         Time.tick(30)
         T.fill(Color)
@@ -49,26 +51,40 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 if event.key == K_d or event.key == K_RIGHT:catMR(False)
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
-
-        if M1.x == X and M1.y == Y:
-            print("acertou1")
-            M1.rect.y += 10
-        
-        if M2.x == X and M2.y == Y:
-            print("acertou2")
-            M2.rect.y += 10
-
-        if M3.x == X and M3.y == Y:
-            print("acertou3")
-            M3.rect.y += 10
-
-        if M4.x == X and M4.y == Y:
-            print("acertou4")
-            M4.rect.y += 10
+        colM1 = pygame.sprite.spritecollide(M1, GOM1, False, pygame.sprite.collide_mask)
+        colM2 = pygame.sprite.spritecollide(M2, GOM2, False, pygame.sprite.collide_mask)
+        colM3 = pygame.sprite.spritecollide(M3, GOM3, False, pygame.sprite.collide_mask)
+        colM4 = pygame.sprite.spritecollide(M4, GOM4, False, pygame.sprite.collide_mask)
 
         TS.draw(T)
 
         fire(Cws,Cwr,T,Color2,B,x,y)
+        boom(Cws,Cwr,G,B,M1,M2,M3,M4)
+
+
+#        if colM1 and Col2 == False:Col2 = True
+#        if Col2 == True:
+#            R=randrange(1, 2)
+#            Col2=False
+#            M1.esp(R)
+
+#        if colM2 and Col2 == False:Col2 = True
+#        if Col2 == True:
+#            R=randrange(1, 2)
+#            Col2=False
+#            M2.esp(R)
+
+#        if colM3 and Col2 == False:Col2 = True
+#        if Col2 == True:
+#            R=randrange(1, 2)
+#            Col2=False
+#            M3.esp(R)
+        
+#        if colM4 and Col2 == False:Col2 = True
+#        if Col2 == True:
+#            R=randrange(1, 2)
+#            Col2=False
+#            M4.esp(R)
 
         if colisoes and Col == False:
             Col = True
@@ -78,6 +94,34 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         else:TS.update()
 
         pygame.display.flip()
+
+def boom(Cws,Cwr,G,B,M1,M2,M3,M4):
+    if not Cws and not Cwr and not G:
+        for pop_balloon in B:
+            if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
+                B.remove(pop_balloon)
+                M1.pos(LARGURA)
+            elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
+                B.remove(pop_balloon)
+                M2.pos(LARGURA)
+            elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
+                B.remove(pop_balloon)
+                M3.pos(LARGURA)
+            elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
+                B.remove(pop_balloon)
+                M4.pos(LARGURA - randrange(50, 200, 90) )
+            elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
+                B.remove(pop_balloon)
+                M1.pos(LARGURA)
+            elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
+                B.remove(pop_balloon)
+                M2.pos(LARGURA)
+            elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
+                B.remove(pop_balloon)
+                M3.pos(LARGURA)
+            elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
+                B.remove(pop_balloon)
+                M4.pos(LARGURA)
 
 def fire(Cws,Cwr,T,color,B,x,y):
     if not Cws and not Cwr:
@@ -196,13 +240,21 @@ class Mouse(pygame.sprite.Sprite):
         self.image = sprite_sheet.subsurface((11*520, 0), (514,407))
         self.image = pygame.transform.scale(self.image, (int(28*3),int(20*3)))
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.y = randrange(81, 100, 50)
         self.rect.x = LARGURA - randrange(30, 290, 90)
         self.x=self.rect.x
         self.y=self.rect.y
 
 
-    def pos (self):return [self.rect.x,self.rect.y]
+    def pos (self,x):
+        self.crach=True
+        self.rect.x=x
+
+    def esp (self,x):
+        if x == 0:self.rect.x+=20
+        else: self.rect.y+=20
+
 
     def update(self):
         if self.rect.topright[0] < 0:
@@ -210,7 +262,7 @@ class Mouse(pygame.sprite.Sprite):
             self.rect.y = randrange(81, 285, 50)
         self.rect.x -= 10
         self.x=self.rect.x
-        self.y=self.rect.y
+        self.y=self.rect.y  
         if self.rect.y == 82:self.rect.y += 20
         elif self.rect.y == 284:self.rect.y -= 10
 
@@ -256,10 +308,22 @@ todas_as_sprites.add(mouse1,mouse2,mouse3,mouse4)
 grupo_obstaculos = pygame.sprite.Group()
 grupo_obstaculos.add(mouse1,mouse2,mouse3,mouse4)
 
+grupo_oM1 = pygame.sprite.Group()
+grupo_oM1.add(mouse2,mouse3,mouse4)
+
+grupo_oM2 = pygame.sprite.Group()
+grupo_oM2.add(mouse1,mouse3,mouse4)
+
+grupo_oM3 = pygame.sprite.Group()
+grupo_oM3.add(mouse1,mouse2,mouse4)
+
+grupo_oM4 = pygame.sprite.Group()
+grupo_oM4.add(mouse1,mouse2,mouse3)
+
 relogio = pygame.time.Clock()
 
 def game_loop():
     global colidiu
     global bullets
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM)
 game_loop()
