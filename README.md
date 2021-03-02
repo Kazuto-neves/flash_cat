@@ -4,4 +4,4 @@
 
 ## Download com EXE
 
-## [![mega-icon-29](mega-icon-29.ico)](https://mega.nz/file/q2hmEQwZ#alDfocH0cRtPE5QVBb9rb6ybp9lZKZrVXYpXfaRQJVE)
+## [![mega-icon-29](mega-icon-29.ico)](https://mega.nz/folder/bmxj3QoI#G2mYJOB6aJ-2rYefC9_eCw)
