@@ -33,30 +33,42 @@ game_over = False
 run = True
 pts=0
 
+def control(CT,C):
+    texto("Controles:",CT,40,LARGURA/3,220)
+    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
+    texto("Pausar use o P",C,30,LARGURA/3,300)
+
+
 def placar(pts):texto("Pontuação:"+str(pts),Preto,50,340,10)
 
 def go(pts):
     tela.fill(BRANCO)
     texto("Game Over",Vermelho,100,LARGURA/5, ALTURA/14)
     texto("Pontuação:"+str(pts),Preto,50,LARGURA/3, ALTURA/4)
-    pygame.draw.rect(tela,Preto, [140,210,150,50])
-    texto("Continuar",BRANCO,30,155,210)
-    texto("(ESPAÇO)",BRANCO,30,155,240)
-    pygame.draw.rect(tela,Preto, [350,210,150,50])
-    texto("Sair",BRANCO,30,400,210)
-    texto("(Esc)",BRANCO,30,400,240)
+    pygame.draw.rect(tela,Preto, [140,140,150,50])
+    texto("Continuar",BRANCO,30,155,145)
+    texto("(ESPAÇO)",BRANCO,30,155,165)
+    pygame.draw.rect(tela,Preto, [350,140,150,50])
+    texto("Sair",BRANCO,30,400,145)
+    texto("(Esc)",BRANCO,30,400,165)
+    control(Vermelho,Preto)
     pygame.display.update()
+
+    #if X > 140 and Y > 140 and X < 290 and Y < 190:
+    #if X > 350 and Y > 140 and X < 500 and Y < 190:
+
 
 def pause(pts):
     tela.fill(BRANCO)
     texto("Pause",Vermelho,100,LARGURA/3, ALTURA/14)
     texto("Pontuação:"+str(pts),Preto,50,LARGURA/3, ALTURA/4)
-    pygame.draw.rect(tela,Preto, [140,210,150,50])
-    texto("Continuar",BRANCO,30,155,210)
-    texto("(ESPAÇO)",BRANCO,30,155,240)
-    pygame.draw.rect(tela,Preto, [350,210,150,50])
-    texto("Sair",BRANCO,30,400,210)
-    texto("(Esc)",BRANCO,30,400,240)
+    pygame.draw.rect(tela,Preto, [140,140,150,50])
+    texto("Continuar",BRANCO,30,155,145)
+    texto("(ESPAÇO)",BRANCO,30,155,165)
+    pygame.draw.rect(tela,Preto, [350,140,150,50])
+    texto("Re-começar",BRANCO,30,380,145)
+    texto("(F5)",BRANCO,30,400,165)
+    control(Vermelho,Preto)
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -131,18 +143,18 @@ def main ():
         #music()
         tela.fill(bg(Bg))
         texto("Flash Cat",fc(Fc),60,LARGURA/3, ALTURA/14)
-        pygame.draw.rect(tela,bt(Bt), [250,70,130,50])
-        texto("Medio(1)",fcb(Fcb),30,275,85)
-        pygame.draw.rect(tela,bt(Bt), [250,170,130,50])
-        texto("Dificil(2)",fcb(Fcb),30,275,185)
-        pygame.draw.rect(tela,bt(Bt), [250,270,130,50])
-        texto("Insano(3)",fcb(Fcb),30,275,285)
-        pygame.draw.rect(tela,Vermelho, [490,0,150,50])
-        texto("Sair",BRANCO,30,550,5)
-        texto("(esc)",BRANCO,30,550,30)
+        pygame.draw.rect(tela,bt(Bt), [250,70,130,25])
+        texto("Medio(1)",fcb(Fcb),30,275,75)
+        pygame.draw.rect(tela,bt(Bt), [250,120,130,25])
+        texto("Dificil(2)",fcb(Fcb),30,275,125)
+        pygame.draw.rect(tela,bt(Bt), [250,170,130,25])
+        texto("Insano(3)",fcb(Fcb),30,275,175)
+        pygame.draw.rect(tela,Vermelho, [510,0,130,25])
+        texto("Sair(esc)",BRANCO,30,535,5)
         #*pygame.draw.rect(tela,bt(Bt), [12,12,44,44], border_radius=15)
         #*pygame.draw.rect(tela,bc(Bc), [10, 10, 50, 50], 5, border_radius=15)
         #*img(Tl)
+        control(fcb(Fcb),fc(Fc))
         pygame.display.update()
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:pygame.quit()
@@ -164,21 +176,21 @@ def main ():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x = pygame.mouse.get_pos()[0]
                     y = pygame.mouse.get_pos()[1]
-                    if x > 250 and y > 70 and x < 380 and y < 120:
+                    if x > 250 and y > 70 and x < 380 and y < 95:
                         inicio = False
                         n=1
                         game_loop(n)
-                    if x > 250 and y > 170 and x < 380 and y < 220:
+                    if x > 250 and y > 120 and x < 380 and y < 145:
                         inicio = False
                         n=2
                         game_loop(n)
-                    if x > 250 and y > 270 and x < 380 and y < 330:
+                    if x > 250 and y > 170 and x < 380 and y < 195:
                         inicio = False
                         n=3
                         game_loop(n)
                     #*if x > 10 and y > 10 and x < 60 and y < 60:
                     #*    tema(Tm,Bg,Fc,Bc,Bt,Fcb,Tl)
-                    if x > 490 and y > 0 and x < 640 and y < 50:pygame.quit()
+                    if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
 def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK):
@@ -190,6 +202,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
     while R:
         while G:
             if o == 1:
+                go(P)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -218,7 +231,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         X = pygame.mouse.get_pos()[0]
                         Y = pygame.mouse.get_pos()[1]
-                        if X > 140 and Y > 210 and X < 290 and Y < 260:
+                        if X > 140 and Y > 140 and X < 290 and Y < 190:
                             R = True
                             G = False
                             c.y= 250
@@ -235,11 +248,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Cwr=False
                             P=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
-                        if X > 350 and Y > 210 and X < 500 and Y < 260:
+                        if X > 350 and Y > 140 and X < 500 and Y < 190:
                             R = False
                             G = False
-                        go(P)
             else:
+                pause(P)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -250,21 +263,48 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
                             o=1
                             #fire(Cws,Cwr,T,Color2,B,x,y)
-                        if event.key == pygame.K_ESCAPE:
-                            R = False
+                        if event.key == pygame.K_F5:
+                            R = True
                             G = False
+                            c.y= 250
+                            c.x= 20
+                            M1.rect.y = randrange(81, 100, 50)
+                            M1.rect.x = LARGURA - randrange(30, 290, 90)
+                            M2.rect.y = randrange(81, 100, 50)
+                            M2.rect.x = LARGURA - randrange(30, 290, 90)
+                            M3.rect.y = randrange(81, 100, 50)
+                            M3.rect.x = LARGURA - randrange(30, 290, 90)
+                            M4.rect.y = randrange(81, 100, 50)
+                            M4.rect.x = LARGURA - randrange(30, 290, 90)
+                            Col=False
+                            Cwr=False
+                            P=0
+                            o=1
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         X = pygame.mouse.get_pos()[0]
                         Y = pygame.mouse.get_pos()[1]
-                        if X > 140 and Y > 210 and X < 290 and Y < 260:
+                        if X > 140 and Y > 140 and X < 290 and Y < 190:
                             R = True
                             G = False
                             o=1
                             #fire(Cws,Cwr,T,Color2,B,x,y)
-                        if X > 350 and Y > 210 and X < 500 and Y < 260:
-                            R = False
+                        if X > 350 and Y > 140 and X < 500 and Y < 190:
+                            R = True
                             G = False
-                        pause(P)   
+                            c.y= 250
+                            c.x= 20
+                            M1.rect.y = randrange(81, 100, 50)
+                            M1.rect.x = LARGURA - randrange(30, 290, 90)
+                            M2.rect.y = randrange(81, 100, 50)
+                            M2.rect.x = LARGURA - randrange(30, 290, 90)
+                            M3.rect.y = randrange(81, 100, 50)
+                            M3.rect.x = LARGURA - randrange(30, 290, 90)
+                            M4.rect.y = randrange(81, 100, 50)
+                            M4.rect.x = LARGURA - randrange(30, 290, 90)
+                            Col=False
+                            Cwr=False
+                            P=0
+                            o=1
         Time.tick(30)
         T.fill(Color)
         TS.draw(T)
