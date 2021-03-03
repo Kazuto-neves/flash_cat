@@ -12,6 +12,17 @@ diretorio_principal = os.path.dirname(__file__)
 diretorio_imagens = os.path.join(diretorio_principal, 'image')
 diretorio_sons = os.path.join(diretorio_principal, 'audio')
 
+def tiro(m):
+    if m == True:
+        ti=pygame.mixer.Sound(os.path.join(diretorio_sons,'kill.ogg'))
+        ti.play()
+
+def explosion(m):
+    if m == True:
+       exp=pygame.mixer.Sound(os.path.join(diretorio_sons,'explosion.mp3'))
+       exp.set_volume(0.02)
+       exp.play()
+
 LARGURA = 640
 ALTURA = 360
 BRANCO = (255,255,255)
@@ -32,16 +43,27 @@ y=0
 game_over = False
 run = True
 pts=0
+m=False
+
+def Plot(CT,C):
+    texto("Controles:",CT,40,LARGURA/3,220)
+    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
+    texto("Pausar use o P",C,30,LARGURA/3,300)
+
 
 def control(CT,C):
     texto("Controles:",CT,40,LARGURA/3,220)
     texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
     texto("Pausar use o P",C,30,LARGURA/3,300)
 
+def menu_audio(C,CT):
+        pygame.draw.rect(tela,CT, [4,304,44,44], border_radius=15)
+        pygame.draw.rect(tela,C, [2, 302, 50, 50], 5, border_radius=15)
+
 
 def placar(pts):texto("Pontuação:"+str(pts),Preto,50,340,10)
 
-def go(pts):
+def go(pts,S):
     tela.fill(BRANCO)
     texto("Game Over",Vermelho,100,LARGURA/5, ALTURA/14)
     texto("Pontuação:"+str(pts),Preto,50,LARGURA/3, ALTURA/4)
@@ -52,10 +74,8 @@ def go(pts):
     texto("Sair",BRANCO,30,400,145)
     texto("(Esc)",BRANCO,30,400,165)
     control(Vermelho,Preto)
+    menu_audio(Vermelho,Preto)
     pygame.display.update()
-
-    #if X > 140 and Y > 140 and X < 290 and Y < 190:
-    #if X > 350 and Y > 140 and X < 500 and Y < 190:
 
 
 def pause(pts):
@@ -69,6 +89,7 @@ def pause(pts):
     texto("Re-começar",BRANCO,30,380,145)
     texto("(F5)",BRANCO,30,400,165)
     control(Vermelho,Preto)
+    menu_audio(Vermelho,Preto)
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -137,7 +158,7 @@ def glob():
     Tl=True
     Tm=True
 
-def main ():
+def main (s):
     inicio = True
     while inicio:
         #music()
@@ -151,26 +172,34 @@ def main ():
         texto("Insano(3)",fcb(Fcb),30,275,175)
         pygame.draw.rect(tela,Vermelho, [510,0,130,25])
         texto("Sair(esc)",BRANCO,30,535,5)
-        #*pygame.draw.rect(tela,bt(Bt), [12,12,44,44], border_radius=15)
-        #*pygame.draw.rect(tela,bc(Bc), [10, 10, 50, 50], 5, border_radius=15)
-        #*img(Tl)
-        control(fcb(Fcb),fc(Fc))
+        pygame.draw.rect(tela,bt(Bt), [12,12,44,44], border_radius=15)
+        pygame.draw.rect(tela,bc(Bc), [10, 10, 50, 50], 5, border_radius=15)
+        img(Tl)
+        menu_audio(bc(Bc),bt(Bt))
+        control(bc(Bc),fc(Fc))
         pygame.display.update()
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         inicio = False
-                        game_loop()
+                        n=1
+                        game_loop(n,s)
                     if event.key == pygame.K_2:
                         inicio = False
-                        game_loop()
+                        n=2
+                        game_loop(n,s)
                     if event.key == pygame.K_3:
                         inicio = False
-                        game_loop()
-                    #*if event.key == pygame.K_TAB:
-                    #*    tema(Tm,Bg,Fc,Bc,Bt,Fcb,Tl)
-                    #*    pygame.display.update()
+                        n=3
+                        game_loop(n,s)
+                    if event.key == pygame.K_TAB:
+                        if s== True:s=False
+                        else:s=True
+                        pygame.display.update()
+                    if event.key == pygame.K_l:
+                        tema(Tm,Bg,Fc,Bc,Bt,Fcb,Tl)
+                        pygame.display.update()
                         
                     if event.key == pygame.K_ESCAPE:pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -179,21 +208,27 @@ def main ():
                     if x > 250 and y > 70 and x < 380 and y < 95:
                         inicio = False
                         n=1
-                        game_loop(n)
+                        game_loop(n,s)
                     if x > 250 and y > 120 and x < 380 and y < 145:
                         inicio = False
                         n=2
-                        game_loop(n)
+                        game_loop(n,s)
                     if x > 250 and y > 170 and x < 380 and y < 195:
                         inicio = False
                         n=3
-                        game_loop(n)
-                    #*if x > 10 and y > 10 and x < 60 and y < 60:
-                    #*    tema(Tm,Bg,Fc,Bc,Bt,Fcb,Tl)
+                        game_loop(n,s)
+                    if x > 2 and y > 302 and x < 46 and y < 352:
+                        if s== True:s=False
+                        else:s=True
+                        print("mudei")
+                        pygame.display.update()
+                    if x > 10 and y > 10 and x < 60 and y < 60:
+                        tema(Tm,Bg,Fc,Bc,Bt,Fcb,Tl)
+                        pygame.display.update()
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s):
     o=1
     M1.lv(LV)
     M2.lv(LV)
@@ -313,20 +348,21 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 pygame.quit()
                 exit()
             if event.type == KEYDOWN:
-                if event.key == K_w or event.key == K_UP:catMU(True)
-                if event.key == K_s or event.key == K_DOWN:catMD(True)
-                if event.key == K_a or event.key == K_LEFT:catML(True)
-                if event.key == K_d or event.key == K_RIGHT:catMR(True)
+                if event.key == K_w or event.key == K_UP:catMU(True,s)
+                if event.key == K_s or event.key == K_DOWN:catMD(True,s)
+                if event.key == K_a or event.key == K_LEFT:catML(True,s)
+                if event.key == K_d or event.key == K_RIGHT:catMR(True,s)
                 if event.key == K_p:
                     G=True
                     o=2
                 if event.key == pygame.K_SPACE:
-                    if not Cws:B.append([c.x, c.y])  
+                    if not Cws:B.append([c.x, c.y]) 
+                    tiro(s) 
             elif event.type == KEYUP:
-                if event.key == K_w or event.key == K_UP:catMU(False)
-                if event.key == K_s or event.key == K_DOWN:catMD(False)
-                if event.key == K_a or event.key == K_LEFT:catML(False)
-                if event.key == K_d or event.key == K_RIGHT:catMR(False)
+                if event.key == K_w or event.key == K_UP:catMU(False,s)
+                if event.key == K_s or event.key == K_DOWN:catMD(False,s)
+                if event.key == K_a or event.key == K_LEFT:catML(False,s)
+                if event.key == K_d or event.key == K_RIGHT:catMR(False,s)
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
         colM1 = pygame.sprite.spritecollide(M1, GOM1, False, pygame.sprite.collide_mask)
@@ -337,7 +373,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         placar(P)
         P+=1
         fire(Cws,Cwr,T,Color2,B,x,y)
-        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P)
+        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,s)
 
 
 #        if colM1 and Col2 == False:Col2 = True
@@ -372,33 +408,40 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
 
         pygame.display.flip()
 
-def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P):
+def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M):
     if not Cws and not Cwr and not G:
         for pop_balloon in B:
             if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,P)
+                explosion(M)
             elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,P)
+                explosion(M)
             elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,P)
             elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,P)
+                explosion(M)
             elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,P)
+                explosion(M)
             elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,P)
+                explosion(M)
             elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,P)
+                explosion(M)
             elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,P)
+                explosion(M)
 
 def fire(Cws,Cwr,T,color,B,x,y):
     if not Cws and not Cwr:
@@ -414,6 +457,8 @@ def fire(Cws,Cwr,T,color,B,x,y):
 class Cat(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        self.mo = pygame.mixer.Sound(os.path.join(diretorio_sons, 'Movement.mp3'))
+        self.mo.set_volume(1)
         self.imagens_cat = []
         for i in range(8):
             img = sprite_sheet.subsurface((i * 508,0), (514,407))
@@ -435,29 +480,33 @@ class Cat(pygame.sprite.Sprite):
         self.wreck_start = False
         self.wrecked = False
 
-    def MoveU(self,n):
+    def MoveU(self,n,s):
         if n == True:
+            if s == True:self.mo.play()
             self.moveu = True
             self.moved = False
             self.movel = False
             self.mover = False
         else:self.moveu = False
-    def MoveD(self,n):
+    def MoveD(self,n,s):
         if n == True:
+            if s == True:self.mo.play()
             self.moveu = False
             self.moved = True
             self.movel = False
             self.mover = False
         else:self.moved = False
-    def MoveR(self,n):
+    def MoveR(self,n,s):
         if n == True:
+            if s == True:self.mo.play()
             self.moveu = False
             self.moved = False
             self.movel = False
             self.mover = True
         else:self.mover = False
-    def MoveL(self,n):
+    def MoveL(self,n,s):
         if n == True:
+            if s == True:self.mo.play()
             self.moveu = False
             self.moved = False
             self.movel = True
@@ -469,7 +518,7 @@ class Cat(pygame.sprite.Sprite):
     def update(self):
         if self.moveu == True:
             if self.rect.y == 80:self.moveu = False
-            else:
+            else: 
                 self.rect.y-=10
                 self.y = self.rect.y
 
@@ -607,11 +656,11 @@ grupo_oM4.add(mouse1,mouse2,mouse3)
 
 relogio = pygame.time.Clock()
 
-def game_loop(n):
+def game_loop(n,s):
     global colidiu
     global bullets
     LV=n
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s)
 
 
-main()
+main(m)
