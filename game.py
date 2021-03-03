@@ -54,8 +54,11 @@ Tm=False
 
 def control(CT,C):
     texto("Controles:",CT,40,LARGURA/3,220)
-    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
-    texto("Pausar use o P",C,30,LARGURA/3,300)
+    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,250)
+    texto("Pausar use o P",C,30,LARGURA/3,270)
+    texto("Mudar o tema L",C,30,LARGURA/3,290)
+    texto("SOM com TAB",C,30,LARGURA/3,310)
+
 
 def menu_audio(C,CT):
         pygame.draw.rect(tela,CT, [4,304,44,44], border_radius=15)
@@ -66,32 +69,32 @@ def placar(pts):texto("Pontuação:"+str(pts),Preto,50,340,10)
 
 def go(pts,S,Tm):
     tela.fill(bg(Tm))
-    texto("Game Over",fc(Tm),100,LARGURA/5, ALTURA/14)
-    texto("Pontuação:"+str(pts),fcb(Tm),50,LARGURA/3, ALTURA/4)
+    texto("Game Over",bc(Tm),100,LARGURA/5, ALTURA/14)
+    texto("Pontuação:"+str(pts),bt(Tm),50,LARGURA/3, ALTURA/4)
     pygame.draw.rect(tela,bt(Tm), [140,140,150,50])
     texto("Continuar",fcb(Tm),30,155,145)
     texto("(ESPAÇO)",fcb(Tm),30,155,165)
     pygame.draw.rect(tela,bt(Tm), [350,140,150,50])
     texto("Sair",fcb(Tm),30,400,145)
     texto("(Esc)",fcb(Tm),30,400,165)
-    control(Vermelho,Preto)
+    control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(Vermelho,Preto)
+    menu_audio(bc(Tm),fc(Tm))
     pygame.display.update()
 
 def pause(pts,S,Tm):
     tela.fill(bg(Tm))
-    texto("Pause",fc(Tm),100,LARGURA/3, ALTURA/14)
-    texto("Pontuação:"+str(pts),fcb(Tm),50,LARGURA/3, ALTURA/4)
+    texto("Pause",bc(Tm),100,LARGURA/3, ALTURA/14)
+    texto("Pontuação:"+str(pts),bt(Tm),50,LARGURA/3, ALTURA/4)
     pygame.draw.rect(tela,bt(Tm), [140,140,150,50])
     texto("Continuar",fcb(Tm),30,155,145)
     texto("(ESPAÇO)",fcb(Tm),30,155,165)
     pygame.draw.rect(tela,bt(Tm), [350,140,150,50])
     texto("Re-começar",fcb(Tm),30,380,145)
     texto("(F5)",fcb(Tm),30,400,165)
-    control(fc(Tm),bt(Tm))
+    control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(Vermelho,Preto)
+    menu_audio(bc(Tm),fc(Tm))
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -134,7 +137,7 @@ def main (s,Tm):
     while inicio:
         #music()
         tela.fill(bg(Tm))
-        texto("Flash Cat",fc(Tm),60,LARGURA/3, ALTURA/14)
+        texto("Flash Cat",bc(Tm),60,LARGURA/3, ALTURA/14)
         pygame.draw.rect(tela,bt(Tm), [250,70,130,25])
         texto("Medio(1)",fcb(Tm),30,275,75)
         pygame.draw.rect(tela,bt(Tm), [250,120,130,25])
@@ -234,11 +237,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
                             else:s=True
-                            pygame.display.update()
                         if event.key == pygame.K_l:
                             if Tm==False:Tm=True
                             else:Tm=False
-                            pygame.display.update()
                         if event.key == pygame.K_ESCAPE:
                             R = False
                             G = False
@@ -266,11 +267,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             if s== True:s=False
                             else:s=True
                             print("mudei")
-                            pygame.display.update()
                         if x > 10 and y > 10 and x < 60 and y < 60:
                             if Tm==False:Tm=True
                             else:Tm=False
-                            pygame.display.update()
                         if X > 350 and Y > 140 and X < 500 and Y < 190:
                             R = False
                             G = False
