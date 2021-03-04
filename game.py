@@ -67,6 +67,7 @@ def control(CT,C):
     texto("Pausar use o P",C,30,LARGURA/3,270)
     texto("Mudar o tema L",C,30,LARGURA/3,290)
     texto("SOM com TAB",C,30,LARGURA/3,310)
+    texto("Especial com Q",C,30,LARGURA/3,330)
 
 
 def menu_audio(C,CT):
@@ -77,7 +78,8 @@ def menu_audio(C,CT):
 def placar(pts,x):
     texto("Pontuação:"+str(pts),Preto,50,340,10)
     texto("Mega cheese:",Preto,35,10,10)
-    pygame.draw.rect(tela,BRANCO, [177,14,x,20])
+    pygame.draw.rect(tela,BRANCO, [174,12,x,20])
+    pygame.draw.rect(tela,Preto, [225, 12, 0, 20], 5)
     pygame.draw.rect(tela,Vermelho, [175, 12, 100, 20], 5)
 
 def go(pts,S,Tm):
