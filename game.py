@@ -28,6 +28,15 @@ def explosion(m):
        exp.set_volume(0.02)
        exp.play()
 
+def music(m,p,r,l):
+    if m == True:
+        pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+        pygame.mixer.music.play(-1)
+    if p == True:pygame.mixer.music.pause()
+    else:
+        if r == True:pygame.mixer.music.unpause()
+    if l == 93000000:pygame.mixer.music.rewind()
+
 LARGURA = 640
 ALTURA = 360
 BRANCO = (255,255,255)
@@ -54,6 +63,9 @@ Mega=0
 w=0
 h=0
 M=False
+p=False
+r=False
+l=0
 
 #def Plot(CT,C):
 #    texto("Controles:",CT,40,LARGURA/3,220)
@@ -70,17 +82,18 @@ def control(CT,C):
     texto("Especial com Q",C,30,LARGURA/3,330)
 
 
-def menu_audio(C,CT):
-        pygame.draw.rect(tela,CT, [4,304,44,44], border_radius=15)
-        pygame.draw.rect(tela,C, [2, 302, 50, 50], 5, border_radius=15)
+def menu_audio(x):
+        if x == True:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Ssom.png')).convert_alpha()
+        else:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Csom.png')).convert_alpha()
+        tela.blit(ss, [4, 304,20,20])
 
 
 def placar(pts,x):
     texto("Pontuação:"+str(pts),Preto,50,340,10)
     texto("Mega cheeses:",Preto,35,10,10)
-    pygame.draw.rect(tela,BRANCO, [174,12,x,20])
-    pygame.draw.rect(tela,Preto, [225, 12, 0, 20], 5)
-    pygame.draw.rect(tela,Vermelho, [175, 12, 100, 20], 5)
+    pygame.draw.rect(tela,BRANCO, [183,12,x,20])
+    pygame.draw.rect(tela,Preto, [234, 12, 0, 20], 5)
+    pygame.draw.rect(tela,Vermelho, [184, 12, 100, 20], 5)
 
 def go(pts,S,Tm):
     tela.fill(bg(Tm))
@@ -94,7 +107,7 @@ def go(pts,S,Tm):
     texto("(Esc)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(bc(Tm),fc(Tm))
+    menu_audio(S)
     pygame.display.update()
 
 def pause(pts,S,Tm):
@@ -109,7 +122,7 @@ def pause(pts,S,Tm):
     texto("(F5)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(bc(Tm),fc(Tm))
+    menu_audio(S)
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -150,7 +163,6 @@ def tema(bt,bc,T):
 def main (s,Tm):
     inicio = True
     while inicio:
-        #music()
         tela.fill(bg(Tm))
         texto("Flash Cat",bc(Tm),60,LARGURA/3, ALTURA/14)
         pygame.draw.rect(tela,bt(Tm), [250,70,130,25])
@@ -162,7 +174,7 @@ def main (s,Tm):
         pygame.draw.rect(tela,Vermelho, [510,0,130,25])
         texto("Sair(esc)",BRANCO,30,535,5)
         tema(bt(Tm),bc(Tm),Tm)
-        menu_audio(bc(Tm),bt(Tm))
+        menu_audio(s)
         control(bc(Tm),fc(Tm))
         pygame.display.update()
         for event in pygame.event.get():
@@ -217,13 +229,15 @@ def main (s,Tm):
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M,p,r,L):
     o=1
     M1.lv(LV)
     M2.lv(LV)
     M3.lv(LV)
     M4.lv(LV)
+    music(s,p,r,l)
     while R:
+        L+=1 
         while G:
             if o == 1:
                 go(P,s,Tm)
@@ -248,6 +262,13 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Col=False
                             Cwr=False
                             P=0
+                            f=0
+                            w=0
+                            h=0
+                            M=False
+                            r=False
+                            p=False
+                            L=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
@@ -279,6 +300,13 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Col=False
                             Cwr=False
                             P=0
+                            f=0
+                            w=0
+                            h=0
+                            M=False
+                            r=False
+                            p=False
+                            L=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if x > 2 and y > 302 and x < 46 and y < 352:
                             if s== True:s=False
@@ -321,6 +349,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Cwr=False
                             P=0
                             o=1
+                            r=False
+                            p=False
+                            L=0
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
                             else:s=True
@@ -354,6 +385,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Cwr=False
                             P=0
                             o=1
+                            r=False
+                            p=False
+                            L=0
                         if x > 2 and y > 302 and x < 46 and y < 352:
                             if s== True:s=False
                             else:s=True
@@ -491,7 +525,7 @@ def fire(Cws,Cwr,T,color,B,x,y,M,w,h):
                 pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, w, h))
                 y=draw_bullet[1]
             for move_bullet in range(len(B)):
-                B[move_bullet][0] += 0.5
+                B[move_bullet][0] += 0.1
                 x=move_bullet
             for del_bullet in B:
                 if del_bullet[0] >= 640:B.remove(del_bullet)
@@ -702,7 +736,7 @@ def game_loop(n,s):
     global colidiu
     global bullets
     LV=n
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M,p,r,l)
 
 
 main(m,Tm)
