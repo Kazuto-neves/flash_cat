@@ -95,7 +95,7 @@ def placar(pts,x):
     pygame.draw.rect(tela,Preto, [234, 12, 0, 20], 5)
     pygame.draw.rect(tela,Vermelho, [184, 12, 100, 20], 5)
 
-def go(pts,S,Tm):
+def go(pts,m,Tm):
     tela.fill(bg(Tm))
     texto("Game Over",bc(Tm),100,LARGURA/5, ALTURA/14)
     texto("Pontuação:"+str(pts),bt(Tm),50,LARGURA/3, ALTURA/4)
@@ -107,10 +107,10 @@ def go(pts,S,Tm):
     texto("(Esc)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(S)
+    menu_audio(m)
     pygame.display.update()
 
-def pause(pts,S,Tm):
+def pause(pts,m,Tm):
     tela.fill(bg(Tm))
     texto("Pause",bc(Tm),100,LARGURA/3, ALTURA/14)
     texto("Pontuação:"+str(pts),bt(Tm),50,LARGURA/3, ALTURA/4)
@@ -122,7 +122,7 @@ def pause(pts,S,Tm):
     texto("(F5)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    menu_audio(S)
+    menu_audio(m)
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -160,7 +160,7 @@ def tema(bt,bc,T):
         pygame.draw.rect(tela,bc, [10, 10, 50, 50], 5, border_radius=15)
         img(T)
 
-def main (s,Tm):
+def main (m,Tm):
     inicio = True
     while inicio:
         tela.fill(bg(Tm))
@@ -174,7 +174,7 @@ def main (s,Tm):
         pygame.draw.rect(tela,Vermelho, [510,0,130,25])
         texto("Sair(esc)",BRANCO,30,535,5)
         tema(bt(Tm),bc(Tm),Tm)
-        menu_audio(s)
+        menu_audio(m)
         control(bc(Tm),fc(Tm))
         pygame.display.update()
         for event in pygame.event.get():
@@ -183,18 +183,18 @@ def main (s,Tm):
                     if event.key == pygame.K_1:
                         inicio = False
                         n=1
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if event.key == pygame.K_2:
                         inicio = False
                         n=2
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if event.key == pygame.K_3:
                         inicio = False
                         n=3
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if event.key == pygame.K_TAB:
-                        if s== True:s=False
-                        else:s=True
+                        if m== True:m=False
+                        else:m=True
                         pygame.display.update()
                     if event.key == pygame.K_l:
                         if Tm==False:Tm=True
@@ -208,18 +208,18 @@ def main (s,Tm):
                     if x > 250 and y > 70 and x < 380 and y < 95:
                         inicio = False
                         n=1
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if x > 250 and y > 120 and x < 380 and y < 145:
                         inicio = False
                         n=2
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if x > 250 and y > 170 and x < 380 and y < 195:
                         inicio = False
                         n=3
-                        game_loop(n,s)
+                        game_loop(n,m)
                     if x > 2 and y > 302 and x < 46 and y < 352:
-                        if s== True:s=False
-                        else:s=True
+                        if m== True:m=False
+                        else:m=True
                         print("mudei")
                         pygame.display.update()
                     if x > 10 and y > 10 and x < 60 and y < 60:
@@ -229,18 +229,18 @@ def main (s,Tm):
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M,p,r,L):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,m,Tm,f,w,h,M,p,r,L):
     o=1
     M1.lv(LV)
     M2.lv(LV)
     M3.lv(LV)
     M4.lv(LV)
-    music(s,p,r,l)
+    music(m,p,r,l)
     while R:
         L+=1 
         while G:
             if o == 1:
-                go(P,s,Tm)
+                go(P,m,Tm)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -271,8 +271,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             L=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_TAB:
-                            if s== True:s=False
-                            else:s=True
+                            if m== True:m=False
+                            else:m=True
                             pygame.display.update()
                         if event.key == pygame.K_l:
                             if Tm==False:Tm=True
@@ -309,8 +309,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             L=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if x > 2 and y > 302 and x < 46 and y < 352:
-                            if s== True:s=False
-                            else:s=True
+                            if m== True:m=False
+                            else:m=True
                             print("mudei")
                             pygame.display.update()
                         if x > 10 and y > 10 and x < 60 and y < 60:
@@ -321,7 +321,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             R = False
                             G = False
             else:
-                pause(P,s,Tm)
+                pause(P,m,Tm)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -353,8 +353,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             p=False
                             L=0
                         if event.key == pygame.K_TAB:
-                            if s== True:s=False
-                            else:s=True
+                            if m== True:m=False
+                            else:m=True
                             pygame.display.update()
                         if event.key == pygame.K_l:
                             if Tm==False:Tm=True
@@ -389,8 +389,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             p=False
                             L=0
                         if x > 2 and y > 302 and x < 46 and y < 352:
-                            if s== True:s=False
-                            else:s=True
+                            if m== True:m=False
+                            else:m=True
                             print("mudei")
                             pygame.display.update()
                         if x > 10 and y > 10 and x < 60 and y < 60:
@@ -405,16 +405,16 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 pygame.quit()
                 exit()
             if event.type == KEYDOWN:
-                if event.key == K_w or event.key == K_UP:catMU(True,s)
-                if event.key == K_s or event.key == K_DOWN:catMD(True,s)
-                if event.key == K_a or event.key == K_LEFT:catML(True,s)
-                if event.key == K_d or event.key == K_RIGHT:catMR(True,s)
+                if event.key == K_w or event.key == K_UP:catMU(True,m)
+                if event.key == K_s or event.key == K_DOWN:catMD(True,m)
+                if event.key == K_a or event.key == K_LEFT:catML(True,m)
+                if event.key == K_d or event.key == K_RIGHT:catMR(True,m)
                 if event.key == K_p:
                     G=True
                     o=2
                 if event.key == K_SPACE:
                     if not Cws:B.append([c.x, c.y]) 
-                    tiro(s)
+                    tiro(m)
                     if f <=100:f+=1
                     else:f
                     w=(6.4*f)/2
@@ -422,13 +422,13 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 if event.key == K_q:
                     if f>=50:
                         M=True
-                        Mtiro(s)
+                        Mtiro(m)
                         f=0
             elif event.type == KEYUP:
-                if event.key == K_w or event.key == K_UP:catMU(False,s)
-                if event.key == K_s or event.key == K_DOWN:catMD(False,s)
-                if event.key == K_a or event.key == K_LEFT:catML(False,s)
-                if event.key == K_d or event.key == K_RIGHT:catMR(False,s)
+                if event.key == K_w or event.key == K_UP:catMU(False,m)
+                if event.key == K_s or event.key == K_DOWN:catMD(False,m)
+                if event.key == K_a or event.key == K_LEFT:catML(False,m)
+                if event.key == K_d or event.key == K_RIGHT:catMR(False,m)
                 if event.key == K_q:M=False
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
@@ -440,7 +440,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         placar(P,f)
         P+=1
         fire(Cws,Cwr,T,Color2,B,x,y,M,w,h)
-        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,s)
+        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,m)
 
 
 #        if colM1 and Col2 == False:Col2 = True
@@ -556,33 +556,33 @@ class Cat(pygame.sprite.Sprite):
         self.wreck_start = False
         self.wrecked = False
 
-    def MoveU(self,n,s):
+    def MoveU(self,n,m):
         if n == True:
-            if s == True:self.mo.play()
+            if m == True:self.mo.play()
             self.moveu = True
             self.moved = False
             self.movel = False
             self.mover = False
         else:self.moveu = False
-    def MoveD(self,n,s):
+    def MoveD(self,n,m):
         if n == True:
-            if s == True:self.mo.play()
+            if m == True:self.mo.play()
             self.moveu = False
             self.moved = True
             self.movel = False
             self.mover = False
         else:self.moved = False
-    def MoveR(self,n,s):
+    def MoveR(self,n,m):
         if n == True:
-            if s == True:self.mo.play()
+            if m == True:self.mo.play()
             self.moveu = False
             self.moved = False
             self.movel = False
             self.mover = True
         else:self.mover = False
-    def MoveL(self,n,s):
+    def MoveL(self,n,m):
         if n == True:
-            if s == True:self.mo.play()
+            if m == True:self.mo.play()
             self.moveu = False
             self.moved = False
             self.movel = True
@@ -733,11 +733,11 @@ grupo_oM4.add(mouse1,mouse2,mouse3)
 
 relogio = pygame.time.Clock()
 
-def game_loop(n,s):
+def game_loop(n,m):
     global colidiu
     global bullets
     LV=n
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M,p,r,l)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,m,Tm,Mega,w,h,M,p,r,l)
 
 
 main(m,Tm)
