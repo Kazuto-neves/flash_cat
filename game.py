@@ -77,7 +77,7 @@ def menu_audio(C,CT):
 
 def placar(pts,x):
     texto("Pontuação:"+str(pts),Preto,50,340,10)
-    texto("Mega cheese:",Preto,35,10,10)
+    texto("Mega cheeses:",Preto,35,10,10)
     pygame.draw.rect(tela,BRANCO, [174,12,x,20])
     pygame.draw.rect(tela,Preto, [225, 12, 0, 20], 5)
     pygame.draw.rect(tela,Vermelho, [175, 12, 100, 20], 5)
