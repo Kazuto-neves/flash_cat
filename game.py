@@ -479,34 +479,34 @@ def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M):
         for pop_balloon in B:
             if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
                 B.remove(pop_balloon)
-                M1.pos(LARGURA,P)
+                M1.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
                 B.remove(pop_balloon)
-                M2.pos(LARGURA,P)
+                M2.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
                 B.remove(pop_balloon)
-                M3.pos(LARGURA,P)
+                M3.pos(LARGURA,randrange(81, 285, 50),P)
             elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
                 B.remove(pop_balloon)
-                M4.pos(LARGURA,P)
+                M4.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
                 B.remove(pop_balloon)
-                M1.pos(LARGURA,P)
+                M1.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
                 B.remove(pop_balloon)
-                M2.pos(LARGURA,P)
+                M2.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
                 B.remove(pop_balloon)
-                M3.pos(LARGURA,P)
+                M3.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
             elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
                 B.remove(pop_balloon)
-                M4.pos(LARGURA,P)
+                M4.pos(LARGURA,randrange(81, 285, 50),P)
                 explosion(M)
 
 def fire(Cws,Cwr,T,color,B,x,y,M,w,h):
@@ -650,9 +650,10 @@ class Mouse(pygame.sprite.Sprite):
         self.v=10
 
 
-    def pos (self,x,P):
+    def pos (self,x,y,P):
         self.crach=True
         self.rect.x=x
+        self.rect.y =y
         P+=1000
 
     def esp (self,x):
