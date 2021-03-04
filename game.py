@@ -17,6 +17,11 @@ def tiro(m):
         ti=pygame.mixer.Sound(os.path.join(diretorio_sons,'kill.ogg'))
         ti.play()
 
+def Mtiro(m):
+    if m == True:
+        mt=pygame.mixer.Sound(os.path.join(diretorio_sons,'Mkill.mp3'))
+        mt.play()
+
 def explosion(m):
     if m == True:
        exp=pygame.mixer.Sound(os.path.join(diretorio_sons,'explosion.mp3'))
@@ -45,6 +50,10 @@ run = True
 pts=0
 m=False
 Tm=False
+Mega=0
+w=0
+h=0
+M=False
 
 #def Plot(CT,C):
 #    texto("Controles:",CT,40,LARGURA/3,220)
@@ -65,7 +74,11 @@ def menu_audio(C,CT):
         pygame.draw.rect(tela,C, [2, 302, 50, 50], 5, border_radius=15)
 
 
-def placar(pts):texto("Pontuação:"+str(pts),Preto,50,340,10)
+def placar(pts,x):
+    texto("Pontuação:"+str(pts),Preto,50,340,10)
+    texto("Mega cheese:",Preto,35,10,10)
+    pygame.draw.rect(tela,BRANCO, [177,14,x,20])
+    pygame.draw.rect(tela,Vermelho, [175, 12, 100, 20], 5)
 
 def go(pts,S,Tm):
     tela.fill(bg(Tm))
@@ -202,7 +215,7 @@ def main (s,Tm):
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M):
     o=1
     M1.lv(LV)
     M2.lv(LV)
@@ -237,9 +250,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
                             else:s=True
+                            pygame.display.update()
                         if event.key == pygame.K_l:
                             if Tm==False:Tm=True
                             else:Tm=False
+                            pygame.display.update()
                         if event.key == pygame.K_ESCAPE:
                             R = False
                             G = False
@@ -267,9 +282,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             if s== True:s=False
                             else:s=True
                             print("mudei")
+                            pygame.display.update()
                         if x > 10 and y > 10 and x < 60 and y < 60:
                             if Tm==False:Tm=True
                             else:Tm=False
+                            pygame.display.update()
                         if X > 350 and Y > 140 and X < 500 and Y < 190:
                             R = False
                             G = False
@@ -302,6 +319,14 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             Cwr=False
                             P=0
                             o=1
+                        if event.key == pygame.K_TAB:
+                            if s== True:s=False
+                            else:s=True
+                            pygame.display.update()
+                        if event.key == pygame.K_l:
+                            if Tm==False:Tm=True
+                            else:Tm=False
+                            pygame.display.update()
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         X = pygame.mouse.get_pos()[0]
                         Y = pygame.mouse.get_pos()[1]
@@ -351,14 +376,24 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 if event.key == K_p:
                     G=True
                     o=2
-                if event.key == pygame.K_SPACE:
+                if event.key == K_SPACE:
                     if not Cws:B.append([c.x, c.y]) 
-                    tiro(s) 
+                    tiro(s)
+                    if f <=100:f+=1
+                    else:f
+                    w=(6.4*f)/2
+                    h=(3.6*f)/2
+                if event.key == K_q:
+                    if f>=50:
+                        M=True
+                        Mtiro(s)
+                        f=0
             elif event.type == KEYUP:
                 if event.key == K_w or event.key == K_UP:catMU(False,s)
                 if event.key == K_s or event.key == K_DOWN:catMD(False,s)
                 if event.key == K_a or event.key == K_LEFT:catML(False,s)
                 if event.key == K_d or event.key == K_RIGHT:catMR(False,s)
+                if event.key == K_q:M=False
 
         colisoes = pygame.sprite.spritecollide(c, GO, False, pygame.sprite.collide_mask)
         colM1 = pygame.sprite.spritecollide(M1, GOM1, False, pygame.sprite.collide_mask)
@@ -366,9 +401,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         colM3 = pygame.sprite.spritecollide(M3, GOM3, False, pygame.sprite.collide_mask)
         colM4 = pygame.sprite.spritecollide(M4, GOM4, False, pygame.sprite.collide_mask)
 
-        placar(P)
+        placar(P,f)
         P+=1
-        fire(Cws,Cwr,T,Color2,B,x,y)
+        fire(Cws,Cwr,T,Color2,B,x,y,M,w,h)
         boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,s)
 
 
@@ -395,7 +430,6 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
 #            R=randrange(1, 2)
 #            Col2=False
 #            M4.esp(R)
-
         if colisoes and Col == False:
             Col = True
             Cwr = True
@@ -439,15 +473,25 @@ def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M):
                 M4.pos(LARGURA,P)
                 explosion(M)
 
-def fire(Cws,Cwr,T,color,B,x,y):
+def fire(Cws,Cwr,T,color,B,x,y,M,w,h):
     if not Cws and not Cwr:
-        for draw_bullet in B:
-            pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, 10, 10))
-            y=draw_bullet[1]
-        for move_bullet in range(len(B)):
-            B[move_bullet][0] += 40
-            x=move_bullet
-        for del_bullet in B:
+        if M == False:
+            for draw_bullet in B:
+                pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, 10, 10))
+                y=draw_bullet[1]
+            for move_bullet in range(len(B)):
+                B[move_bullet][0] += 20
+                x=move_bullet
+            for del_bullet in B:
+                if del_bullet[0] >= 640:B.remove(del_bullet)
+        else:
+            for draw_bullet in B:
+                pygame.draw.rect(T, color, (draw_bullet[0]+90, draw_bullet[1]+20, w, h))
+                y=draw_bullet[1]
+            for move_bullet in range(len(B)):
+                B[move_bullet][0] += 0.5
+                x=move_bullet
+            for del_bullet in B:
                 if del_bullet[0] >= 640:B.remove(del_bullet)
 
 class Cat(pygame.sprite.Sprite):
@@ -656,7 +700,7 @@ def game_loop(n,s):
     global colidiu
     global bullets
     LV=n
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M)
 
 
 main(m,Tm)
