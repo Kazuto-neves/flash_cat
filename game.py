@@ -19,12 +19,12 @@ def tiro(m):
 
 def Mtiro(m):
     if m == True:
-        mt=pygame.mixer.Sound(os.path.join(diretorio_sons,'Mkill.mp3'))
+        mt=pygame.mixer.Sound(os.path.join(diretorio_sons,'Mkill.ogg'))
         mt.play()
 
 def explosion(m):
     if m == True:
-       exp=pygame.mixer.Sound(os.path.join(diretorio_sons,'explosion.mp3'))
+       exp=pygame.mixer.Sound(os.path.join(diretorio_sons,'explosion.ogg'))
        exp.set_volume(0.02)
        exp.play()
 
@@ -533,7 +533,7 @@ def fire(Cws,Cwr,T,color,B,x,y,M,w,h):
 class Cat(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.mo = pygame.mixer.Sound(os.path.join(diretorio_sons, 'Movement.mp3'))
+        self.mo = pygame.mixer.Sound(os.path.join(diretorio_sons, 'Movement.ogg'))
         self.mo.set_volume(1)
         self.imagens_cat = []
         for i in range(8):
