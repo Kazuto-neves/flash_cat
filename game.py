@@ -639,7 +639,8 @@ class Cloud(pygame.sprite.Sprite):
 class Mouse(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = sprite_sheet.subsurface((11*520, 0), (514,407))
+        self.s=11
+        self.image = sprite_sheet.subsurface((self.s*520, 0), (514,407))
         self.image = pygame.transform.scale(self.image, (int(28*3),int(20*3)))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
@@ -652,6 +653,7 @@ class Mouse(pygame.sprite.Sprite):
 
     def pos (self,x,y,P):
         self.crach=True
+        self.s=12
         self.rect.x=x
         self.rect.y =y
         P+=1000
