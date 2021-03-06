@@ -87,11 +87,11 @@ def menu_audio(x):
         if x == True:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Ssom.png')).convert_alpha()
         else:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Csom.png')).convert_alpha()
         tela.blit(ss, [4, 304,20,20])
-
-
+    
 def placar(pts,x,N):
     texto("Pontuação:"+str(pts),Preto,35,440,10)
-    texto("Wave"+str(N),Preto,35,LARGURA/2,10)
+    texto("Wave",Preto,35,LARGURA/2,10)
+    texto(" "+str(N),Vermelho,35,LARGURA/1.7,10)
     texto("Mega cheeses:",Preto,35,10,10)
     pygame.draw.rect(tela,BRANCO, [183,14,x,20])
     pygame.draw.rect(tela,Preto, [234, 14, 0, 20], 5)
@@ -253,6 +253,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
                             c.y= 250
                             c.x= 20
+                            c.rect.x=20
+                            c.rect.y=250
                             M1.rect.y = randrange(81, 100, 50)
                             M1.rect.x = LARGURA - randrange(30, 290, 90)
                             M2.rect.y = randrange(81, 100, 50)
@@ -271,6 +273,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             r=False
                             p=False
                             L=0
+                            M1.cont=0
+                            N=1
+                            CONT=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
@@ -291,6 +296,8 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
                             c.y= 250
                             c.x= 20
+                            c.rect.x=20
+                            c.rect.y=250
                             M1.rect.y = randrange(81, 100, 50)
                             M1.rect.x = LARGURA - randrange(30, 290, 90)
                             M2.rect.y = randrange(81, 100, 50)
@@ -309,6 +316,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             r=False
                             p=False
                             L=0
+                            M1.cont=0
+                            N=1
+                            CONT=0
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if x > 2 and y > 302 and x < 46 and y < 352:
                             if s== True:s=False
