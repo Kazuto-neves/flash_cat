@@ -66,12 +66,13 @@ M=False
 p=False
 r=False
 l=0
+N=1
+cont=0
 
 #def Plot(CT,C):
 #    texto("Controles:",CT,40,LARGURA/3,220)
 #    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
 #    texto("Pausar use o P",C,30,LARGURA/3,300)
-
 
 def control(CT,C):
     texto("Controles:",CT,40,LARGURA/3,220)
@@ -88,12 +89,13 @@ def menu_audio(x):
         tela.blit(ss, [4, 304,20,20])
 
 
-def placar(pts,x):
-    texto("Pontuação:"+str(pts),Preto,50,340,10)
+def placar(pts,x,N):
+    texto("Pontuação:"+str(pts),Preto,35,440,10)
+    texto("Wave"+str(N),Preto,35,LARGURA/2,10)
     texto("Mega cheeses:",Preto,35,10,10)
-    pygame.draw.rect(tela,BRANCO, [183,12,x,20])
-    pygame.draw.rect(tela,Preto, [234, 12, 0, 20], 5)
-    pygame.draw.rect(tela,Vermelho, [184, 12, 100, 20], 5)
+    pygame.draw.rect(tela,BRANCO, [183,14,x,20])
+    pygame.draw.rect(tela,Preto, [234, 14, 0, 20], 5)
+    pygame.draw.rect(tela,Vermelho, [184, 14, 100, 20], 5)
 
 def go(pts,S,Tm):
     tela.fill(bg(Tm))
@@ -229,7 +231,7 @@ def main (s,Tm):
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 
-def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M,p,r,L):
+def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2,M3,M4,x,y,G,GOM1,GOM2,GOM3,GOM4,Col2,LV,R,P,CD,BK,s,Tm,f,w,h,M,p,r,L,N,CONT):
     o=1
     M1.lv(LV)
     M2.lv(LV)
@@ -437,10 +439,10 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         colM3 = pygame.sprite.spritecollide(M3, GOM3, False, pygame.sprite.collide_mask)
         colM4 = pygame.sprite.spritecollide(M4, GOM4, False, pygame.sprite.collide_mask)
 
-        placar(P,f)
+        placar(P,f,N)
         P+=1
         fire(Cws,Cwr,T,Color2,B,x,y,M,w,h)
-        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,s)
+        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,s,CONT)
 
 
 #        if colM1 and Col2 == False:Col2 = True
@@ -470,43 +472,67 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
             Col = True
             Cwr = True
         if Col == True:G=True
-        else:TS.update()
+        else:
+            if CONT < 500:
+                CONT+=1
+                TS.update()
+            else:
+                TS.update()
+                N+=1
+                CONT=0
 
         pygame.display.flip()
 
-def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M):
+def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT):
     if not Cws and not Cwr and not G:
         for pop_balloon in B:
             if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,randrange(81, 285, 50),P)
+                M1.crash()
+                CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,randrange(81, 285, 50),P)
+                M2.crash()
+                CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,randrange(81, 285, 50),P)
+                M3.crash()
+                CONT+=1
+                explosion(M)
             elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,randrange(81, 285, 50),P)
+                M4.crash()
+                CONT+=1
                 explosion(M)
             elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,randrange(81, 285, 50),P)
+                M1.crash()
+                CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,randrange(81, 285, 50),P)
+                M2.crash()
+                CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,randrange(81, 285, 50),P)
+                M3.crash()
+                CONT+=1
                 explosion(M)
             elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,randrange(81, 285, 50),P)
+                M4.crash()
+                CONT+=1
                 explosion(M)
 
 def fire(Cws,Cwr,T,color,B,x,y,M,w,h):
@@ -649,6 +675,8 @@ class Mouse(pygame.sprite.Sprite):
         self.x=self.rect.x
         self.y=self.rect.y
         self.v=10
+        self.cont=0
+        self.w=1
 
 
     def pos (self,x,y,P):
@@ -667,12 +695,18 @@ class Mouse(pygame.sprite.Sprite):
         elif x == 2:self.v=15
         elif x == 3:self.v=20
 
+    def crash(self):self.cont+=1
 
 
     def update(self):
-        if self.rect.topright[0] < 0:
-            self.rect.x = LARGURA
-            self.rect.y = randrange(81, 285, 50)
+        if self.cont < 500:
+            if self.rect.topright[0] < 0:
+                self.rect.x = LARGURA
+                self.rect.y = randrange(81, 285, 50)
+                self.cont+=1
+        elif self.cont == 50:
+            self.cont =0
+            self.v+=(self.v/2)
         self.rect.x -= self.v
         self.x=self.rect.x
         self.y=self.rect.y  
@@ -739,7 +773,7 @@ def game_loop(n,s):
     global colidiu
     global bullets
     LV=n
-    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M,p,r,l)
+    game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M,p,r,l,N,cont)
 
 
 main(m,Tm)
