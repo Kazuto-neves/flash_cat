@@ -77,24 +77,15 @@ def パワーアップ(pts,S,Tm,Q,u,UP):
     tela.fill(bg(Tm))
     texto("UPGRADE",bc(Tm),100,LARGURA/4, ALTURA/14)
     texto("Pontuação:"+str(pts),bt(Tm),50,LARGURA/3, ALTURA/4)
-    X1=150
-    X2=370
-    if X1>=300:X1=150
-    if X2>=520:X2=370
     if UP == u:
         pygame.draw.rect(tela,bt(Tm), [140,140,150,50])
-        if Q == 1:
-            pygame.draw.rect(tela,Amarelo, [X1,150,10,10])
-        elif Q == 2:
-            pygame.draw.rect(tela,Amarelo, [X1,150,10,10])
-            pygame.draw.rect(tela,Amarelo, [X1,160,10,10])
-        elif Q == 3:
-            pygame.draw.rect(tela,Amarelo, [X1,150,10,10])
-            pygame.draw.rect(tela,Amarelo, [X1,160,10,10])
-            pygame.draw.rect(tela,Amarelo, [X1,170,10,10])
+        if Q<=3:
+            pygame.draw.rect(tela,Amarelo, [150,150,30,30])
+            texto("++",fcb(Tm),60,200,141)
         else:texto("Level MAX",fcb(Tm),30,155,145)
         pygame.draw.rect(tela,bt(Tm), [350,140,150,50])
-        pygame.draw.rect(tela,Amarelo, [X2,150,10,10])
+        pygame.draw.rect(tela,Amarelo, [360,150,30,30])
+        texto(">>",fcb(Tm),60,410,141)
     else:
         texto("Voce precisa de mais "+str(UP-u),bc(Tm),40,LARGURA/3, ALTURA/2.8)
         pygame.draw.rect(tela,bt(Tm), [250,170,130,25])
@@ -565,6 +556,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 if event.key == K_u:
                     G=True
                     o=3
+                    u+=300
             elif event.type == KEYUP:
                 if event.key == K_w or event.key == K_UP:catMU(False,s)
                 if event.key == K_s or event.key == K_DOWN:catMD(False,s)
