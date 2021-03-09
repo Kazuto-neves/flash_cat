@@ -28,14 +28,10 @@ def explosion(m):
        exp.set_volume(0.02)
        exp.play()
 
-def music(m,p,r,l):
+def music(m):
     if m == True:
         pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
         pygame.mixer.music.play(-1)
-    if p == True:pygame.mixer.music.pause()
-    else:
-        if r == True:pygame.mixer.music.unpause()
-    if l == 93000000:pygame.mixer.music.rewind()
 
 LARGURA = 640
 ALTURA = 360
@@ -305,12 +301,14 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
     M2.lv(LV)
     M3.lv(LV)
     M4.lv(LV)
-    music(s,p,r,l)
+    music(s)
+    r=False
     while R:
         L+=1
         while G:
             if o == 1:
                 go(P,s,Tm)
+                pygame.mixer.music.pause()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -344,6 +342,10 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             M1.cont=0
                             N=1
                             CONT=0
+                            if s == True:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
@@ -387,6 +389,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             M1.cont=0
                             N=1
                             CONT=0
+                            if s == True:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                                
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if x > 2 and y > 302 and x < 46 and y < 352:
                             if s== True:s=False
@@ -402,6 +409,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
             elif o == 2:
                 pause(P,s,Tm)
+                pygame.mixer.music.pause()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         R = False
@@ -411,6 +419,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             R = True
                             G = False
                             o=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True or r == True:pygame.mixer.music.unpause()
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_F5:
                             R = True
@@ -441,6 +454,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             N=1
                             CONT=0
                             o=1
+                            r=False
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r == True
                         if event.key == pygame.K_TAB:
                             if s== True:s=False
                             else:s=True
@@ -456,6 +474,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             R = True
                             G = False
                             o=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True or r == True:pygame.mixer.music.unpause()
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if X > 350 and Y > 140 and X < 500 and Y < 190:
                             R = True
@@ -486,6 +509,11 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             N=1
                             CONT=0
                             o=1
+                            r=False
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r = True
                         if x > 2 and y > 302 and x < 46 and y < 352:
                             if s== True:s=False
                             else:s=True
@@ -497,6 +525,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             pygame.display.update()
             else:
                 パワーアップ(P,s,Tm,Q,u,UP)
+                pygame.mixer.music.pause()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:pygame.quit()
                 if event.type == pygame.KEYDOWN:
@@ -507,16 +536,34 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
                             o=1
                             if Q<=3:Q+=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                         if event.key == pygame.K_2:
                             R = True
                             G = False
                             o=1
                             V+=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                     else:
                         if event.key == pygame.K_SPACE:
                             R = True
                             G = False
                             o=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                     if event.key == pygame.K_TAB:
                         if s== True:s=False
                         else:s=True
@@ -537,16 +584,34 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                             G = False
                             o=1
                             if Q<=3:Q+=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                         if x > 350 and y > 140 and x < 500 and y < 190:
                             R = True
                             G = False
                             o=1
                             V+=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                     else:
                         if x > 250 and y > 170 and x < 380 and y < 195:
                             R = True
                             G = False
                             o=1
+                            if s == True and r == False:
+                                pygame.mixer.music.load(os.path.join(diretorio_sons,'music.mp3'))
+                                pygame.mixer.music.play(-1)
+                                r=True
+                            if s == True:pygame.mixer.music.unpause()
+                            if s == True and r == True:pygame.mixer.music.unpause()
                     if x > 2 and y > 302 and x < 46 and y < 352:
                         if s== True:s=False
                         else:s=True
@@ -587,7 +652,6 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                 if event.key == K_u:
                     G=True
                     o=3
-                    u+=300
             elif event.type == KEYUP:
                 if event.key == K_w or event.key == K_UP:catMU(False,s)
                 if event.key == K_s or event.key == K_DOWN:catMD(False,s)
@@ -602,7 +666,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         colM4 = pygame.sprite.spritecollide(M4, GOM4, False, pygame.sprite.collide_mask)
 
         placar(P,f,N,u,UP)
-        P+=1
+        #P+=1
         fire(Cws,Cwr,T,Color2,B,x,y,M,w,h,Q,V)
         boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT)
 
@@ -651,49 +715,57 @@ def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT):
         for pop_balloon in B:
             if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
                 B.remove(pop_balloon)
-                M1.pos(LARGURA,randrange(81, 285, 50),P)
+                M1.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M1.crash()
                 CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
                 B.remove(pop_balloon)
-                M2.pos(LARGURA,randrange(81, 285, 50),P)
+                M2.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M2.crash()
                 CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
                 B.remove(pop_balloon)
-                M3.pos(LARGURA,randrange(81, 285, 50),P)
+                M3.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M3.crash()
                 CONT+=1
                 explosion(M)
             elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
                 B.remove(pop_balloon)
-                M4.pos(LARGURA,randrange(81, 285, 50),P)
+                M4.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M4.crash()
                 CONT+=1
                 explosion(M)
             elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
                 B.remove(pop_balloon)
-                M1.pos(LARGURA,randrange(81, 285, 50),P)
+                M1.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M1.crash()
                 CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
                 B.remove(pop_balloon)
-                M2.pos(LARGURA,randrange(81, 285, 50),P)
+                M2.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M2.crash()
                 CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
                 B.remove(pop_balloon)
-                M3.pos(LARGURA,randrange(81, 285, 50),P)
+                M3.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M3.crash()
                 CONT+=1
                 explosion(M)
             elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
                 B.remove(pop_balloon)
-                M4.pos(LARGURA,randrange(81, 285, 50),P)
+                M4.pos(LARGURA,randrange(81, 285, 50))
+                P+=1000
                 M4.crash()
                 CONT+=1
                 explosion(M)
@@ -731,6 +803,7 @@ class Cat(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.mo = pygame.mixer.Sound(os.path.join(diretorio_sons, 'Movement.ogg'))
         self.mo.set_volume(1)
+        self.mol = pygame.mixer.Sound.get_length()
         self.imagens_cat = []
         for i in range(8):
             img = sprite_sheet.subsurface((i * 508,0), (514,407))
@@ -849,12 +922,11 @@ class Mouse(pygame.sprite.Sprite):
         self.w=1
 
 
-    def pos (self,x,y,P):
+    def pos (self,x,y):
         self.crach=True
         self.s=12
         self.rect.x=x
         self.rect.y =y
-        P+=1000
 
     def esp (self,x):
         if x == 0:self.rect.x+=20
@@ -947,4 +1019,3 @@ def game_loop(n,s):
 
 
 Plot(m,Tm)
-#main(m,Tm)
