@@ -803,7 +803,7 @@ class Cat(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.mo = pygame.mixer.Sound(os.path.join(diretorio_sons, 'Movement.ogg'))
         self.mo.set_volume(1)
-        self.mol = pygame.mixer.Sound.get_length()
+        #self.mol = pygame.mixer.Sound.get_length()
         self.imagens_cat = []
         for i in range(8):
             img = sprite_sheet.subsurface((i * 508,0), (514,407))
