@@ -348,7 +348,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                                 r=True
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if event.key == pygame.K_TAB:
-                            if s== True:s=False
+                            if s== True:
+                                s=False
+                                r=False
                             else:s=True
                             pygame.display.update()
                         if event.key == pygame.K_l:
@@ -396,7 +398,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                                 
                             #fire(Cws,Cwr,T,Color2,B,x,y)
                         if x > 2 and y > 302 and x < 46 and y < 352:
-                            if s== True:s=False
+                            if s== True:
+                                s=False
+                                r=False
                             else:s=True
                             print("mudei")
                             pygame.display.update()
@@ -460,7 +464,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                                 pygame.mixer.music.play(-1)
                                 r == True
                         if event.key == pygame.K_TAB:
-                            if s== True:s=False
+                            if s== True:
+                                s=False
+                                r=False
                             else:s=True
                             pygame.display.update()
                         if event.key == pygame.K_l:
@@ -515,7 +521,9 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
                                 pygame.mixer.music.play(-1)
                                 r = True
                         if x > 2 and y > 302 and x < 46 and y < 352:
-                            if s== True:s=False
+                            if s== True:
+                                s=False
+                                r=False
                             else:s=True
                             print("mudei")
                             pygame.display.update()
