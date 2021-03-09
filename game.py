@@ -96,17 +96,48 @@ def パワーアップ(pts,S,Tm,Q,u,UP):
     pygame.display.update()
 
 
-    
-def random_Color():
-    r=randrange(0,255)
-    g=randrange(0,255)
-    b=randrange(0,255)
-    return (r,g,b)
-
-#def Plot(CT,C):
-#    texto("Controles:",CT,40,LARGURA/3,220)
-#    texto("Mover com WASD ou as Cetas",C,30,LARGURA/3,260)
-#    texto("Pausar use o P",C,30,LARGURA/3,300)
+def Plot(s,Tm):
+    inicio = True
+    while inicio:
+        tela.fill(bg(Tm))
+        texto("Historia:",bc(Tm),40,LARGURA/3,10)
+        texto("No planeta Yōmō no bōru",bt(Tm),25,LARGURA/3,40)
+        texto("os seres viviam livremente",bt(Tm),25,LARGURA/3,70)
+        texto("raças como cães, aves e seres aquáticos",bt(Tm),25,LARGURA/3,100)
+        texto("viviam em plena amônia, mas um dia",bt(Tm),25,LARGURA/3,130)
+        texto("os ratos do planeta Akushū",bt(Tm),25,LARGURA/3,160)
+        texto("vieram para tomar o planeta",bt(Tm),25,LARGURA/3,190)
+        texto("então foi selecionado o melhor Neko",bt(Tm),25,LARGURA/3,220)
+        texto("do planeta para combater os ratos",bt(Tm),25,LARGURA/3,250)
+        pygame.draw.rect(tela,bt(Tm), [250,290,130,25])
+        texto("Continuar",fcb(Tm),30,275,295)
+        pygame.draw.rect(tela,Vermelho, [510,0,130,25])
+        texto("Sair(esc)",BRANCO,30,535,5)
+        tema(bt(Tm),bc(Tm),Tm)
+        pygame.display.update()
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        inicio = False
+                        main(s,Tm)
+                    if event.key == pygame.K_l:
+                        if Tm==False:Tm=True
+                        else:Tm=False
+                        pygame.display.update()
+                        
+                    if event.key == pygame.K_ESCAPE:pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x = pygame.mouse.get_pos()[0]
+                    y = pygame.mouse.get_pos()[1]
+                    if x > 250 and y > 290 and x < 380 and y < 315:
+                        inicio = False
+                        main(s,Tm)
+                    if x > 10 and y > 10 and x < 60 and y < 60:
+                        if Tm==False:Tm=True
+                        else:Tm=False
+                        pygame.display.update()
+                    if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
 def control(CT,C):
     texto("Controles:",CT,40,LARGURA/3,220)
@@ -914,4 +945,6 @@ def game_loop(n,s):
     LV=n
     game(colidiu,bullets,relogio,tela,BRANCO,cat.MoveU,cat.MoveD,cat.MoveL,cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,Amarelo,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,x,y,game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,colidiuM,LV,run,pts,cloud,back,s,Tm,Mega,w,h,M,p,r,l,N,cont,Q,V,u,UP)
 
-main(m,Tm)
+
+Plot(m,Tm)
+#main(m,Tm)
