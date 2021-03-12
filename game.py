@@ -303,6 +303,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
     M4.lv(LV)
     music(s)
     r=False
+    PB=False
     while R:
         L+=1
         while G:
@@ -676,7 +677,7 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
         placar(P,f,N,u,UP)
         #P+=1
         fire(Cws,Cwr,T,Color2,B,x,y,M,w,h,Q,V)
-        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT)
+        boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT,PB)
 
 
 #        if colM1 and Col2 == False:Col2 = True
@@ -718,65 +719,80 @@ def game(Col,B,Time,T,Color,catMU,catMD,catML,catMR,Cws,Cwr,c,GO,Color2,TS,M1,M2
 
         pygame.display.flip()
 
-def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT):
+def boom(Cws,Cwr,G,B,M1,M2,M3,M4,P,M,CONT,PB):
     if not Cws and not Cwr and not G:
+        P+=1000
         for pop_balloon in B:
             if M1.x < pop_balloon[0]+90 < M1.y and M1.x < pop_balloon[1]+40 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M1.crash()
                 CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+90 < M2.y and M2.x < pop_balloon[1]+40 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M2.crash()
                 CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+90 < M3.y and M3.x < pop_balloon[1]+40 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M3.crash()
                 CONT+=1
                 explosion(M)
             elif M4.x < pop_balloon[0]+90 < M4.y and M4.x < pop_balloon[1]+40 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M4.crash()
                 CONT+=1
                 explosion(M)
             elif M1.x < pop_balloon[0]+100 < M1.x+70 and M1.y < pop_balloon[1]+50 < M1.y+100:
                 B.remove(pop_balloon)
                 M1.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M1.crash()
                 CONT+=1
                 explosion(M)
             elif M2.x < pop_balloon[0]+100 < M2.x+70 and M2.y < pop_balloon[1]+50 < M2.y+100:
                 B.remove(pop_balloon)
                 M2.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M2.crash()
                 CONT+=1
                 explosion(M)
             elif M3.x < pop_balloon[0]+100 < M3.x+70 and M3.y < pop_balloon[1]+50 < M3.y+100:
                 B.remove(pop_balloon)
                 M3.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M3.crash()
                 CONT+=1
                 explosion(M)
             elif M4.x < pop_balloon[0]+100 < M4.x+70 and M4.y < pop_balloon[1]+50 < M4.y+100:
                 B.remove(pop_balloon)
                 M4.pos(LARGURA,randrange(81, 285, 50))
-                P+=1000
+                PB=True
+                スコア(PB,P)
                 M4.crash()
                 CONT+=1
                 explosion(M)
+
+def スコア(PB,P):
+    if PB == True:
+        P+=1000
+        PB=False
+
 
 def fire(Cws,Cwr,T,color,B,x,y,M,w,h,Q,V):
     if not Cws and not Cwr:
