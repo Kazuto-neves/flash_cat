@@ -145,7 +145,7 @@ def control(CT,C):
 
 
 def menu_audio(x):
-        if x == True:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Ssom.png')).convert_alpha()
+        if x == False:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Ssom.png')).convert_alpha()
         else:ss = pygame.image.load(os.path.join(diretorio_imagens, 'Csom.png')).convert_alpha()
         tela.blit(ss, [4, 304,20,20])
     
