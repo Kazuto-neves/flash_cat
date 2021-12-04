@@ -53,7 +53,7 @@ def reset(Col,cat,M1,M2,M3,M4,EndGame,catDestruido,P,start_music):
     Mega_Bullets=0
     w=0
     h=0
-    Mega_On
+    Mega_On=False
     runSong=False
     p=False
     Loop=0
@@ -61,7 +61,7 @@ def reset(Col,cat,M1,M2,M3,M4,EndGame,catDestruido,P,start_music):
     M2.reset()
     M3.reset()
     M4.reset()
-    N_Wave
+    N_Wave=1
     P=0
     CONT=0
     if start_music == True:
@@ -99,7 +99,6 @@ def pause(Col,cat,M1,M2,M3,M4,EndGame,catDestruido,P,start_music):
     N_Wave=1
     CONT=0
     o=1
-    runSong=False
     P=0
     if start_music == True and runSong == False:
         a.runSong(True)
