@@ -3,8 +3,6 @@ import sprites as spr
 import uteis as u
 from random import *
 
-
-
 class Cloud(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

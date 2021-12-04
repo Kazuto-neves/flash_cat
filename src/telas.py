@@ -1,12 +1,16 @@
 import pygame
 import uteis as u
 import os
-import audio as a
 import sprites as spr
 import gameMain as g
 
 tela = pygame.display.set_mode((u.LARGURA, u.ALTURA))
 pygame.display.set_caption('Flash cat')
+
+def menu_audio(x):
+    if x == False:ss = pygame.image.load(os.path.join(spr.diretorio_imagens, 'Ssom.png')).convert_alpha()
+    else:ss = pygame.image.load(os.path.join(spr.diretorio_imagens, 'Csom.png')).convert_alpha()
+    tela.blit(ss, [4, 304,20,20])
 
 def Power_ups(pts,S,Tm,Q,u,UP):
     tela.fill(bg(Tm))
@@ -27,7 +31,7 @@ def Power_ups(pts,S,Tm,Q,u,UP):
         texto("Continue",fcb(Tm),30,275,175) 
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    a.menu_audio(S)
+    menu_audio(S)
     pygame.display.update()
 
 
@@ -57,8 +61,7 @@ def Plot(s,Tm):
                         inicio = False
                         main(s,Tm)
                     if event.key == pygame.K_l:
-                        if Tm==False:Tm=True
-                        else:Tm=False
+                        u.tema(Tm)
                         pygame.display.update()
                         
                     if event.key == pygame.K_ESCAPE:pygame.quit()
@@ -69,8 +72,7 @@ def Plot(s,Tm):
                         inicio = False
                         main(s,Tm)
                     if x > 10 and y > 10 and x < 60 and y < 60:
-                        if Tm==False:Tm=True
-                        else:Tm=False
+                        u.tema(Tm)
                         pygame.display.update()
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()
 
@@ -106,7 +108,7 @@ def go(pts,S,Tm):
     texto("(Esc)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    a.menu_audio(S)
+    menu_audio(S)
     pygame.display.update()
 
 def pause(pts,S,Tm):
@@ -121,7 +123,7 @@ def pause(pts,S,Tm):
     texto("(F5)",fcb(Tm),30,400,165)
     control(bc(Tm),fc(Tm))
     tema(bt(Tm),bc(Tm),Tm)
-    a.menu_audio(S)
+    menu_audio(S)
     pygame.display.update()
 
 def texto(msg, cor, t,x,y):
@@ -173,7 +175,7 @@ def main (s,Tm):
         pygame.draw.rect(tela,u.Vermelho, [510,0,130,25])
         texto("Sair(esc)",u.BRANCO,30,535,5)
         tema(bt(Tm),bc(Tm),Tm)
-        a.menu_audio(s)
+        menu_audio(s)
         control(bc(Tm),fc(Tm))
         pygame.display.update()
         for event in pygame.event.get():
@@ -196,8 +198,7 @@ def main (s,Tm):
                         else:s=True
                         pygame.display.update()
                     if event.key == pygame.K_l:
-                        if Tm==False:Tm=True
-                        else:Tm=False
+                        u.tema(Tm)
                         pygame.display.update()
                         
                     if event.key == pygame.K_ESCAPE:pygame.quit()
@@ -222,7 +223,6 @@ def main (s,Tm):
                         print("mudei")
                         pygame.display.update()
                     if x > 10 and y > 10 and x < 60 and y < 60:
-                        if Tm==False:Tm=True
-                        else:Tm=False
+                        u.tema(Tm)
                         pygame.display.update()
                     if x > 510 and y > 0 and x < 640 and y < 25:pygame.quit()

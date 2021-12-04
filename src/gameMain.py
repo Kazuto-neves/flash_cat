@@ -10,7 +10,6 @@ import Back as b
 import Bullets as B
 import mouse as m
 import telas as t
-import time
 
 pygame.init()
 pygame.mixer.init()

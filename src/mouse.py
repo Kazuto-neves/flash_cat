@@ -20,7 +20,6 @@ class Mouse(pygame.sprite.Sprite):
         self.w=1
         self.p=0
 
-
     def pos (self,x,y):
         self.crach=True
         self.s=12

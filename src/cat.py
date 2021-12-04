@@ -1,4 +1,3 @@
-import os
 import sprites as spr
 import pygame
 
