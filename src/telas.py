@@ -4,6 +4,8 @@ import os
 import sprites as spr
 import gameMain as g
 
+pygame.init()
+
 tela = pygame.display.set_mode((u.LARGURA, u.ALTURA))
 pygame.display.set_caption('Flash cat')
 

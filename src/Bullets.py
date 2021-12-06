@@ -3,6 +3,8 @@ from random import *
 import audio as a
 import uteis as u
 
+pygame.init()
+
 def fire(catINdetruct,catDestruido,Screen,ColorY,bullets,x,y,Mega_On,w,h,Q_Boom,V_Boom):
     if not catINdetruct and not catDestruido:
         if Mega_On == False:

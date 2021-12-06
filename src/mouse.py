@@ -3,6 +3,7 @@ import sprites as spr
 from random import *
 import uteis as u
 
+pygame.init()
 class Mouse(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

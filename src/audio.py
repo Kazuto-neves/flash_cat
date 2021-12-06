@@ -2,6 +2,8 @@ import os
 import dist
 import pygame
 
+pygame.init()
+
 diretorio_sons = os.path.join(dist.diretorio_principal, 'audio')
 
 def tiro(m):

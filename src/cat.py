@@ -1,6 +1,7 @@
 import sprites as spr
 import pygame
 
+pygame.init()
 class Cat(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

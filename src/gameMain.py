@@ -9,7 +9,6 @@ import cloud as cl
 import Back as b
 import Bullets as B
 import mouse as m
-import telas as t
 
 pygame.init()
 pygame.mixer.init()
