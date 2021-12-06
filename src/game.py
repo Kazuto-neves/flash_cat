@@ -2,17 +2,12 @@ import pygame
 import audio as a
 import uteis as u
 import telas as t
+import Bullets as B
 from pygame.locals import *
 from sys import exit
-import cat as c
-import cloud as cl
-import Back as b
-import Bullets as B
-import mouse as m
 
 pygame.init()
 pygame.mixer.init()
-
 
 def game(Col,bullets,Time,Screen,ColorW,catMU,catMD,catML,catMR,catINdetruct,catDestruido,cat,group_obst,ColorY,ALL_Spr,M1,M2,M3,M4,x,y,EndGame,group_obst_Mouse1,group_obst_Mouse2,group_obst_Mouse3,group_obst_Mouse4,colidiu_Mouse,LV,run,cloud,back,start_music,Tm,Mega_Bullets,w,h,Mega_On,p,runSong,Loop,N_Wave,CONT,Q_Boom,V_Boom,up,Vup):
     o=1
@@ -282,7 +277,7 @@ def game(Col,bullets,Time,Screen,ColorW,catMU,catMD,catML,catMR,catINdetruct,cat
 
         pygame.display.flip()
 
-todas_as_sprites = pygame.sprite.Group()
+"""todas_as_sprites = pygame.sprite.Group()
 cat = c.Cat()
 back = b.Back()
 todas_as_sprites.add(back)
@@ -316,11 +311,10 @@ grupo_oM4.add(mouse1,mouse2,mouse3)
 
 relogio = pygame.time.Clock()
 
-def game_loop(n,s):
+def game_loop(lv,start):
     global colidiu
     global bullets
-    LV=n
-    game(u.colidiu,u.bullets,relogio,t.tela,u.ColorW,c.cat.MoveU,c.cat.MoveD,c.cat.MoveL,c.cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,u.ColorY,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,u.x,u.y,u.game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,u.colidiuM,u.LV,u.run,cloud,back,s,u.Tm,u.Mega,u.w,u.h,u.Mega_On,u.p,u.r,u.l,u.N,u.cont,u.Q,u.V,u.up,u.Vup)
+    LV=lv
+    game(u.colidiu,u.bullets,relogio,t.tela,u.ColorW,c.cat.MoveU,c.cat.MoveD,c.cat.MoveL,c.cat.MoveR,cat.wreck_start,cat.wrecked,cat,grupo_obstaculos,u.ColorY,todas_as_sprites,mouse1,mouse2,mouse3,mouse4,u.x,u.y,u.game_over,grupo_oM1,grupo_oM2,grupo_oM3,grupo_oM4,u.colidiuM,u.LV,u.run,cloud,back,start,u.Tm,u.Mega,u.w,u.h,u.Mega_On,u.p,u.r,u.l,u.N,u.cont,u.Q,u.V,u.up,u.Vup)
 
-
-t.Plot(u.m,u.Tm)
+t.Plot(u.m,u.Tm)"""

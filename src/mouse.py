@@ -4,6 +4,7 @@ from random import *
 import uteis as u
 
 pygame.init()
+print("Mouse OK")
 class Mouse(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

@@ -4,6 +4,7 @@ import uteis as u
 from random import *
 
 pygame.init()
+print("Clound OK")
 class Cloud(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

@@ -1,17 +1,18 @@
 import pygame
 import uteis as u
 import os
-import sprites as spr
-import gameMain as g
+import Image as I
+import game as g
 
 pygame.init()
+print("Telas OK")
 
 tela = pygame.display.set_mode((u.LARGURA, u.ALTURA))
 pygame.display.set_caption('Flash cat')
 
 def menu_audio(x):
-    if x == False:ss = pygame.image.load(os.path.join(spr.diretorio_imagens, 'Ssom.png')).convert_alpha()
-    else:ss = pygame.image.load(os.path.join(spr.diretorio_imagens, 'Csom.png')).convert_alpha()
+    if x == False:ss = pygame.image.load(os.path.join(I.diretorio_imagens, 'Ssom.png')).convert_alpha()
+    else:ss = pygame.image.load(os.path.join(I.diretorio_imagens, 'Csom.png')).convert_alpha()
     tela.blit(ss, [4, 304,20,20])
 
 def Power_ups(pts,S,Tm,Q,u,UP):
@@ -154,8 +155,8 @@ def fcb(fcb):
     else:return (u.BRANCO)
 
 def img(tl):
-    if tl == True:sl = pygame.image.load(os.path.join(spr.diretorio_imagens, 'sol.png')).convert_alpha()
-    else:sl = pygame.image.load(os.path.join(spr.diretorio_imagens, 'lua.png')).convert_alpha()
+    if tl == True:sl = pygame.image.load(os.path.join(I.diretorio_imagens, 'sol.png')).convert_alpha()
+    else:sl = pygame.image.load(os.path.join(I.diretorio_imagens, 'lua.png')).convert_alpha()
     tela.blit(sl, [19, 19])
 
 def tema(bt,bc,T):

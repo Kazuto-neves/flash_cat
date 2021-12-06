@@ -1,6 +1,8 @@
 from random import *
 import audio as a
 
+print("Uteis OK")
+
 LARGURA = 640
 ALTURA = 360
 BRANCO = (255,255,255)

@@ -4,6 +4,7 @@ import audio as a
 import uteis as u
 
 pygame.init()
+print("Bullets OK")
 
 def fire(catINdetruct,catDestruido,Screen,ColorY,bullets,x,y,Mega_On,w,h,Q_Boom,V_Boom):
     if not catINdetruct and not catDestruido:

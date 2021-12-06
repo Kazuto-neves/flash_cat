@@ -3,6 +3,7 @@ import dist
 import pygame
 
 pygame.init()
+print("Audio OK")
 
 diretorio_sons = os.path.join(dist.diretorio_principal, 'audio')
 

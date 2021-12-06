@@ -1,9 +1,8 @@
 import os
-import dist
 import pygame
+import Image as I
 
 pygame.init()
+print("Sprites OK")
 
-diretorio_imagens = os.path.join(dist.diretorio_principal, 'image')
-
-sprite_sheet = pygame.image.load(os.path.join(diretorio_imagens, 'sprite.png')).convert_alpha()
+sprite_sheet = pygame.image.load(os.path.join(I.diretorio_imagens, 'sprite.png')).convert_alpha()

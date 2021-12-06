@@ -1,11 +1,11 @@
 import pygame
 import os
-import sprites as spr
+import Image as I
 
 pygame.init()
 
-back = pygame.image.load(os.path.join(spr.diretorio_imagens,'back.png')).convert_alpha()
-
+back = pygame.image.load(os.path.join(I.diretorio_imagens,'back.png')).convert_alpha()
+print("Back OK")
 class Back(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
